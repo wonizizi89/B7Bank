@@ -12,6 +12,22 @@ public class Account {
     private String bankName; // 필요?
     private List<History> histories;
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
     public Account(String ownerName, String accountNumber, String bankName) {
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;

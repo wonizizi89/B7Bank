@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 
 public class Main {
     public static void main(String[] args) {
+
         BigDecimal amount = BigDecimal.valueOf(1004d);
         BigDecimal balance = BigDecimal.valueOf(10_000d);
 
