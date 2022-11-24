@@ -17,8 +17,17 @@ public class Bank {
     public void registerCustomer(Customer customer) {
         customers.add(customer);
     }
+    public void reviseAccount(Customer customer) {
+    }
+    public void deleteAccount(Customer customer) {
+        for(Account account : accounts) {
+            if(customer.getName().equals(account.getOwnerName())) {
+                accounts.remove(customer);
+            }
+        }
+    }
 
-    public void checkAccountByCustomerName(Customer customer) {
+    public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
         for(Account account : accounts) {
             if(customer.getName().equals(account.getOwnerName())) {
                 String bankName = account.getBankName();
