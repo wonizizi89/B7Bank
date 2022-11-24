@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 public class Bank {
-    private String bankName;
+    private String bankName; //
     private List<Account> accounts;
     private List<Customer> customers;
 
@@ -16,3 +16,4 @@ public class Bank {
 
 
 }
+
