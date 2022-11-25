@@ -10,7 +10,7 @@ public class BankingView {
     Scanner inputSc = new Scanner(System.in);
 
     // UI 설계시
-    public void UiShowAmount(List<Account> accounts ) {
+    public void UiShowAmount(List<Account> accounts) {
         System.out.println("--------------------------------");
         System.out.println("1. 입금 ｜2. 출금 ｜ 3. 잔여금 ");
         System.out.print(" > "); //어떤 작업을 할지 번호 기입란 표기   예   > 1
@@ -52,5 +52,44 @@ public class BankingView {
 //    }else { 고객에게 해당 번호의 금액을 조회 → 출력 → 확인시켜준다. (switch 문)
 //        {
 //            1-6 else 속에 switch 문 구현 하여 고객에게 해당번호의 금액 조회
+    }
+
+    public void showHistoriesUI(Account account) {
+        System.out.println("--------------------------------");
+        System.out.println("0. 돌아가기");
+        System.out.print(account.printAllHistoriesOrNull());
+        System.out.println("--------------------------------");
+        System.out.println("상세 거래 내역을 보려면 번호를 입력해주세요.");
+        String move = inputSc.next();
+
+        for (int i = 0; i < move.length(); i++) {
+            char moveChar = move.charAt(i);
+            if (moveChar < 48 || moveChar > 57) {
+                System.out.println("잘 못 입력하셨습니다!");
+                showHistoriesUI(account);
+            } else if (moveChar == 48){
+                System.out.println("이전 단계로 돌아가게 됩니다.");
+                System.exit(0);
+            } else {
+                showHistory(account, Integer.parseInt(move));
+            }
+        }
+    }
+
+    public void showHistory(Account account, int index) {
+        System.out.println("--------------------------------");
+        System.out.println(String.format("%s%s", account.printHistory(index), System.lineSeparator()));
+        System.out.println("0. 돌아가기");
+        System.out.println("--------------------------------");
+        String move = inputSc.next();
+        for (int i = 0; i < move.length(); i++) {
+            char moveChar = move.charAt(i);
+            if (moveChar != 48) {
+                System.out.println("잘 못 입력하셨습니다!");
+                showHistory(account, Integer.parseInt(move));
+            } else {
+                showHistoriesUI(account);
+            }
+        }
     }
 }
