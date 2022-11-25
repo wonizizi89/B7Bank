@@ -1,4 +1,4 @@
-package program;
+package bank.controller;
 
 public enum TradeType {
     DEPOSIT,
