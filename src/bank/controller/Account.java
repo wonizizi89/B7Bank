@@ -19,9 +19,6 @@ public class Account {
         this.bankName = bankName;
     }
 
-
-
-
     Scanner inputSc = new Scanner(System.in);
 // UI 설계시
     public void UiShowAmount(){
@@ -64,9 +61,5 @@ public class Account {
 //        {
 //            1-6 else 속에 switch 문 구현 하여 고객에게 해당번호의 금액 조회
 //
-
-
-
-
 
 }
