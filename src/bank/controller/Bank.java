@@ -17,25 +17,25 @@ public class Bank {
     public void registerCustomer(Customer customer) {
         customers.add(customer);
     }
+
     public void reviseAccount(Customer customer) {
     }
+
     public void deleteAccount(Customer customer) {
-        for(Account account : bankAccounts) {
-            if(customer.getName().equals(account.getOwnerName())) {
+        for (Account account : bankAccounts) {
+            if (customer.getName().equals(account.getOwnerName())) {
                 bankAccounts.remove(customer);
             }
         }
     }
 
-    public void findEveryAccountFromCustomerId(Customer customer){ //모든 계좌 정보 조회 기능
+    public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 정보 조회 기능
         String customerId = customer.getCustomerId();
         List<Account> accounts = customer.getAccounts();
         for (Account account : accounts) {
             System.out.println(account);
         }
     }
-
-
 
 
     public void registerAccount(Account ac1) {
