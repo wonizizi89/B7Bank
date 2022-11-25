@@ -5,13 +5,12 @@ import java.util.ArrayList;
 
 public class Customer {
     private String name;
-    private List<Account> accounts;
+    private List<Account> customerAccounts;
     private String customerId; // 동명 이인일 수 있어서 이걸로 식별
-
 
     public Customer(String name, String customerId) {
         this.name = name;
-        this.accounts = new ArrayList<>();
+        this.customerAccounts = new ArrayList<>();
         this.customerId = customerId;
     }
 
@@ -20,10 +19,11 @@ public class Customer {
     }
 
     public List<Account> getAccounts() {
-        return accounts;
+        return customerAccounts;
     }
 
     public String getCustomerId() {
         return customerId;
     }
+
 }
