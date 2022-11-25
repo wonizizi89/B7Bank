@@ -27,17 +27,6 @@ public class Bank {
         }
     }
 
-    public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
-        for(Account account : accounts) {
-            if(customer.getName().equals(account.getOwnerName())) {
-                String bankName = account.getBankName();
-                String accountNum = account.getAccountNumber();
-                int balance = account.getBalance();
-                System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %d원",bankName,accountNum,balance);
-            }
-        }
-    }
-
 
     public void registerAccount(Account ac1) {
     }
