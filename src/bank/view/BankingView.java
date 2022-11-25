@@ -1,6 +1,7 @@
 package bank.view;
 
 import bank.controller.Account;
+import bank.controller.Customer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class BankingView {
     Scanner inputSc = new Scanner(System.in);
 
     // UI 설계시
-    public void uiShowAmount(List<Account> accounts ) {
+    public void uiShowAmount(List<Account> accounts) {
         System.out.println("--------------------------------");
         System.out.println("1. 입금 ｜2. 출금 ｜ 3. 잔여금 ");
         System.out.print(" > "); //어떤 작업을 할지 번호 기입란 표기   예   > 1
@@ -51,5 +52,13 @@ public class BankingView {
 //                다시 되돌아기기 또는 알림메세지”고객명이 일치하지 않습니다.” 라고 출력
 //            }else { 고객에게 해당 번호의 금액을 조회 → 출력 → 확인시켜준다. (switch 문) }
 //        1-6 else 속에 switch 문 구현 하여 고객에게 해당번호의 금액 조회
+    }
+
+    public void uiRegisterCustomer(Customer customer) {
+        System.out.println("----------고객 등록 페이지 입니다----------");
+        System.out.print("은행을 입력해주세요 : ");
+        String bankName = inputSc.next();
+        System.out.print("계좌번호를 입력해주세요('-'제외) :");
+        String accountNumber = inputSc.next();
     }
 }
