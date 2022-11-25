@@ -1,29 +1,29 @@
 package bank.controller;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Customer {
     private String name;
-    private HashMap<String, String> accounts;
+    private List<Account> customerAccounts;
     private String customerId; // 동명 이인일 수 있어서 이걸로 식별
+
+    public Customer(String name, String customerId) {
+        this.name = name;
+        this.customerAccounts = new ArrayList<>();
+        this.customerId = customerId;
+    }
 
     public String getName() {
         return name;
     }
 
-    public HashMap<String, String> getAccounts() {
-        return accounts;
+    public List<Account> getAccounts() {
+        return customerAccounts;
     }
 
     public String getCustomerId() {
         return customerId;
-    }
-
-
-    public Customer(String name, String customerId) {
-        this.name = name;
-        this.accounts = new HashMap<>();
-        this.customerId = customerId;
     }
 
 }
