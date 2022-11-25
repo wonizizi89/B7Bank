@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Bank {
     private String bankName;
-    private List<Account> accounts;
+    private List<Account> bankAccounts;
     private List<Customer> customers;
 
     public Bank(String bankName) {
-        this.accounts = new ArrayList<>();
+        this.bankAccounts = new ArrayList<>();
         this.customers = new ArrayList<>();
     }
 
@@ -20,12 +20,22 @@ public class Bank {
     public void reviseAccount(Customer customer) {
     }
     public void deleteAccount(Customer customer) {
-        for(Account account : accounts) {
+        for(Account account : bankAccounts) {
             if(customer.getName().equals(account.getOwnerName())) {
-                accounts.remove(customer);
+                bankAccounts.remove(customer);
             }
         }
     }
+
+    public void findEveryAccountFromCustomerId(Customer customer){ //모든 계좌 정보 조회 기능
+        String customerId = customer.getCustomerId();
+        List<Account> accounts = customer.getAccounts();
+        for (Account account : accounts) {
+            System.out.println(account);
+        }
+    }
+
+
 
 
     public void registerAccount(Account ac1) {
