@@ -18,8 +18,10 @@ public class Bank {
     public void registerCustomer(Customer customer) {
         customers.add(customer);
     }
+    
     public void reviseAccount(Customer customer) {
     }
+    
     public void deleteAccount(Customer customer) {
         for(Account account : bankAccounts) {
             if(customer.getName().equals(account.getOwnerName())) {
@@ -39,7 +41,6 @@ public class Bank {
         }
     }
 
-
     public void registerAccount(Account ac1) {
     }
 
@@ -51,4 +52,3 @@ public class Bank {
 
     }
 }
-
