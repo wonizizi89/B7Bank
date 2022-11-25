@@ -18,16 +18,24 @@ public class Bank {
     public void registerCustomer(Customer customer) {
         customers.add(customer);
     }
+
     public void reviseAccount(Customer customer) {
     }
+
     public void deleteAccount(Customer customer) {
+<<<<<<< HEAD
         for(Account account : bankAccounts) {
             if(customer.getName().equals(account.getOwnerName())) {
+=======
+        for (Account account : bankAccounts) {
+            if (customer.getName().equals(account.getOwnerName())) {
+>>>>>>> upstream/main
                 bankAccounts.remove(customer);
             }
         }
     }
 
+<<<<<<< HEAD
     public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
         for(Account account : bankAccounts) {
             if(customer.getName().equals(account.getOwnerName())) {
@@ -36,6 +44,13 @@ public class Bank {
                 int balance = account.getBalance();
                 System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %d원",bankName,accountNum,balance);
             }
+=======
+    public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 정보 조회 기능
+        String customerId = customer.getCustomerId();
+        List<Account> accounts = customer.getAccounts();
+        for (Account account : accounts) {
+            System.out.println(account);
+>>>>>>> upstream/main
         }
     }
 
