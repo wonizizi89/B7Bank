@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 public class History {
     private OffsetDateTime transactionDate;
     private String accountNumber;
-    private TradeType type;
+    private ETradeType type;
     private BigDecimal amount;
     private BigDecimal balance;
     private String traderName;
 
-    public History(OffsetDateTime transactionDate, String accountNumber, TradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
+    public History(OffsetDateTime transactionDate, String accountNumber, ETradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
             this.transactionDate = transactionDate;
             this.accountNumber = accountNumber;
             this.type = type;
@@ -33,7 +33,7 @@ public class History {
         return accountNumber;
     }
 
-    public TradeType getType() {
+    public ETradeType getType() {
         return type;
     }
 
