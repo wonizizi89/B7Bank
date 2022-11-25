@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Account {
     private String ownerName;
@@ -20,19 +21,19 @@ public class Account {
         this.histories = new ArrayList<>();
     }
 
-    protected String getOwnerName() {
+    public String getOwnerName() {
         return this.ownerName;
     }
 
-    protected String getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    protected int getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    protected String getBankName() {
+    public String getBankName() {
         return bankName;
     }
 
@@ -70,3 +71,5 @@ public class Account {
         }
     }
 }
+
+

@@ -39,7 +39,7 @@ public class Bank {
     }
 
 
-
-
+    public void registerAccount(Account ac1) {
+    }
 }
 
