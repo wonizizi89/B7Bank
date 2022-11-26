@@ -68,11 +68,21 @@ public class BankingView {
                 break;
             }
             else {
-                System.out.println("중복된 아이디 입니다. 새로운 ID를 입력해주세요 :  ");
+                System.out.print("중복된 아이디 입니다. 새로운 ID를 입력해주세요 :  ");
             }
         }
         System.out.print("비밀번호를 입력해주세요 :");
         String newCustomerPassword = inputSc.next();
+        while(true) {
+            System.out.print("비밀번호를 한번 더 입력해주세요 : ");
+            String againNewCustomerPassword = inputSc.next();
+            if(againNewCustomerPassword.equals(newCustomerPassword)) {
+                break;
+            }
+            else {
+                System.out.println("비밀번호가 같지 않습니다.");
+            }
+        }
         bank.registerCustomer(new Customer(newCustomerName, newCustomerId, newCustomerPassword));
     }
 
