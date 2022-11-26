@@ -13,7 +13,7 @@ public class BankingView {
     Scanner inputSc = new Scanner(System.in);
 
     // 은행 업무를 선택하게 되는 뷰
-    public void showUiBanking(List<Account> accounts) {
+    public void showUIBanking(List<Account> accounts) {
         System.out.println("--------------------------------");
         System.out.println("1. 입금 ｜2. 출금 ｜3. 잔여금");
         System.out.print(" > "); //어떤 작업을 할지 번호 기입란 표기 예) > 1
@@ -53,27 +53,27 @@ public class BankingView {
 //            } else {고객에게 해당 번호의 금액을 조회 → 출력 → 확인시켜준다.(switch 문)}
 //        1-6 else 속에 switch 문 구현 하여 고객에게 해당번호의 금액 조회
     }
-    public void showUIRegisterCustomer(List<Customer> customers) {
+
+    //회원 가입 뷰
+    public void showRegisterCustomerUI(List<Customer> customers) {
         System.out.println("----------회원가입----------");
+        System.out.println("이름을 입력해주세요 : ");
+        String newCustomerName = inputSc.next();
         System.out.print("ID을 입력해주세요 : ");
-        String newCustomerId = inputSc.next();
-        for(Customer cm : customers){
-            while(true) {
-                if (cm.getCustomerId().equals(newCustomerId)) {
-                    System.out.println("중복된 ID 입니다. 다시 입력해주세요");
-                    newCustomerId = inputSc.next();
-                }
-                else break;
+        String newCustomerId;
+        while(true) {
+            newCustomerId = inputSc.next();
+            if(bank.checkDuplicatedID(customers, newCustomerId)) {
+                System.out.println("사용 가능한 아이디 입니다.");
+                break;
+            }
+            else {
+                System.out.println("중복된 아이디 입니다. 새로운 ID를 입력해주세요 :  ");
             }
         }
         System.out.print("비밀번호를 입력해주세요 :");
         String newCustomerPassword = inputSc.next();
-
-
-
-//        public void registerCustomer(Customer customer) {
-//            customers.add(customer);
-//        }
+        bank.registerCustomer(new Customer(newCustomerName, newCustomerId, newCustomerPassword));
     }
 
     // 모든 거래내역을 보는 뷰
