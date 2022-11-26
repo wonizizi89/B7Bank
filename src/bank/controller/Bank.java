@@ -39,8 +39,14 @@ public class Bank {
         }
     }
 
-
-    public void registerAccount(Account ac1) {
+    //ID 중복 체크, true면 사용가능한 ID, false면 사용 불가한 ID
+    public boolean checkDuplicatedID(List<Customer> customers, String customerId) {
+        for(Customer cm : customers) {
+            if(cm.getCustomerId().equals(customerId)){
+                return false;
+            }
+        }
+        return true;
     }
 }
 
