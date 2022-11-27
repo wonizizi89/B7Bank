@@ -18,6 +18,16 @@ public class Bank {
         this.customers = new ArrayList<>();
     }
 
+    public Customer getCustomerOrNull(String customerID) {
+        for (Customer customer : customers) {
+            if (customer.getCustomerId().equals(customerID)) {
+                return customer;
+            }
+        }
+
+        return null;
+    }
+
     public boolean checkDuplicateID(String customerID) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(customerID)) {
