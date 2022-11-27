@@ -71,8 +71,8 @@ public class Bank {
                 String bankName = account.getBankName();
                 String accountNum = account.getAccountNumber();
 
-                int balance = account.getBalance();
-                System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %d원", bankName, accountNum, balance);
+                BigDecimal balance = account.getBalance();
+                System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %s원", bankName, accountNum, balance);
 
             }
         }
