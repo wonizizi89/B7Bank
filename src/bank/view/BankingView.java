@@ -19,7 +19,6 @@ public class BankingView {
         System.out.println("계좌번호를 입력하세요");
         String inputAccount = inputSc.next();
 
-
         for (int i = 0; i < accounts.size(); i++) {  //accounts => 계좌리스트
             if (!accounts.get(i).getAccountNumber().equals(inputAccount)) {
                 System.out.println("잘못된 입력 입니다.");

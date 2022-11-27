@@ -12,6 +12,7 @@ public class LoginAndRegisterView {
         System.out.println("----------회원가입----------");
         System.out.print("ID을 입력해주세요 : ");
         String newCustomerId = inputSc.next();
+
         for (Customer cm : customers) {
             while (true) {
                 if (cm.getCustomerId().equals(newCustomerId)) {

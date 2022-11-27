@@ -4,14 +4,24 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Customer {
+    private String customerId;
+    private String password;
     private String name;
     private List<Account> customerAccounts;
-    private String customerId; // 동명 이인일 수 있어서 이걸로 식별
 
-    public Customer(String name, String customerId) {
+    public Customer(String customerId, String password, String name) {
+        this.customerId = customerId;
+        this.password = password;
         this.name = name;
         this.customerAccounts = new ArrayList<>();
-        this.customerId = customerId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -20,10 +30,6 @@ public class Customer {
 
     public List<Account> getAccounts() {
         return customerAccounts;
-    }
-
-    public String getCustomerId() {
-        return customerId;
     }
 
 }
