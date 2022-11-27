@@ -9,7 +9,8 @@ public class Bank {
     private List<Account> bankAccounts;
     private List<Customer> customers;
 
-    public Bank() {}
+    public Bank() {
+    }
 
     public Bank(String bankName) {
         this.bankAccounts = new ArrayList<>();
@@ -39,8 +40,26 @@ public class Bank {
         }
     }
 
+    public void registerAccount(String ownerName) {
+        String bankNumber = createBankNumber();
 
-    public void registerAccount(Account ac1) {
+        for (Account Account : bankAccounts) {
+            if (Account.getAccountNumber().equals(bankNumber)) {
+                bankNumber = createBankNumber();
+            }
+        }
+
+        Account newAccount = new Account(ownerName, bankNumber, this.bankName);
+        bankAccounts.add(newAccount);
     }
+
+    private String createBankNumber() {
+        StringBuilder bankNumBuilder = new StringBuilder();
+        bankNumBuilder.append("110");
+        bankNumBuilder.append((Math.random() * 100));
+        bankNumBuilder.append((Math.random() * 100000));
+        return bankNumBuilder.toString();
+    }
+
 }
 

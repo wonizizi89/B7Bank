@@ -30,6 +30,17 @@ public class Account {
         return accountNumber;
     }
 
+    public String getAccountNumberWithHypen() {
+        StringBuilder hypenAttacher = new StringBuilder();
+        hypenAttacher.append(accountNumber.substring(0, 3));
+        hypenAttacher.append("-");
+        hypenAttacher.append(accountNumber.substring(3, 6));
+        hypenAttacher.append("-");
+        hypenAttacher.append(accountNumber.substring(6, accountNumber.length()));
+
+        return hypenAttacher.toString();
+    }
+
     public int getBalance() {
         return balance;
     }
@@ -94,6 +105,7 @@ public class Account {
             return amount;
         }
     }
+
 }
 
 
