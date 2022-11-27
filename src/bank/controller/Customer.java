@@ -1,7 +1,8 @@
 package bank.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Customer {
     private String customerId;
@@ -32,4 +33,8 @@ public class Customer {
         return customerAccounts;
     }
 
+    public Customer(String name, String customerId) {
+        this.name = name;
+        this.customerId = customerId;
+    }
 }
