@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BankingView {
-    Bank bank = new Bank();
-
     Scanner inputSc = new Scanner(System.in);
 
     // 은행 업무를 선택하게 되는 뷰
@@ -20,7 +18,6 @@ public class BankingView {
         String inputNum = inputSc.next(); //메뉴1,2,3 중 입력된 값 input에 저장, String형 숫자 기입
         System.out.println("계좌번호를 입력하세요");
         String inputAccount = inputSc.next();
-
 
         for (int i = 0; i < accounts.size(); i++) {  //accounts => 계좌리스트
             if (!accounts.get(i).getAccountNumber().equals(inputAccount)) {
@@ -52,28 +49,6 @@ public class BankingView {
 //                다시 되돌아기기 또는 알림메세지”고객명이 일치하지 않습니다.” 라고 출력
 //            } else {고객에게 해당 번호의 금액을 조회 → 출력 → 확인시켜준다.(switch 문)}
 //        1-6 else 속에 switch 문 구현 하여 고객에게 해당번호의 금액 조회
-    }
-    public void showUIRegisterCustomer(List<Customer> customers) {
-        System.out.println("----------회원가입----------");
-        System.out.print("ID을 입력해주세요 : ");
-        String newCustomerId = inputSc.next();
-        for(Customer cm : customers){
-            while(true) {
-                if (cm.getCustomerId().equals(newCustomerId)) {
-                    System.out.println("중복된 ID 입니다. 다시 입력해주세요");
-                    newCustomerId = inputSc.next();
-                }
-                else break;
-            }
-        }
-        System.out.print("비밀번호를 입력해주세요 :");
-        String newCustomerPassword = inputSc.next();
-
-
-
-//        public void registerCustomer(Customer customer) {
-//            customers.add(customer);
-//        }
     }
 
     // 모든 거래내역을 보는 뷰
