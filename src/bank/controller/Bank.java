@@ -13,6 +13,7 @@ public class Bank {
     }
 
     public Bank(String bankName) {
+        this.bankName = bankName;
         this.bankAccounts = new ArrayList<>();
         this.customers = new ArrayList<>();
     }
