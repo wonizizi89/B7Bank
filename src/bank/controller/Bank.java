@@ -51,25 +51,19 @@ public class Bank {
         Customer newCustomer = new Customer(customerID, password, customerName);
         customers.add(newCustomer);
     }
-<<<<<<< HEAD
 
     public void reviseAccount(Customer customer) {
     }
 
-=======
-    
-    public void reviseAccount(Customer customer) {
-    }
-    
->>>>>>> 27545c6df2dd68e4584bef7736c5c6e1ff80436c
     public void deleteAccount(Customer customer) {
-
-<<<<<<< HEAD
         for (Account account : bankAccounts) {
             if (customer.getName().equals(account.getOwnerName())) {
 
                 bankAccounts.remove(customer);
-=======
+            }
+        }
+    }
+
     public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
         for(Account account : bankAccounts) {
             if(customer.getName().equals(account.getOwnerName())) {
@@ -77,7 +71,6 @@ public class Bank {
                 String accountNum = account.getAccountNumber();
                 int balance = account.getBalance();
                 System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %d원",bankName,accountNum,balance);
->>>>>>> 27545c6df2dd68e4584bef7736c5c6e1ff80436c
             }
         }
     }
@@ -85,12 +78,12 @@ public class Bank {
     public void registerAccount(Account ac1) {
     }
 
-    public void findEveryAccountFromCustomerId(Customer customer){ //모든 계좌 목록 조회
+    public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
         List<Account> temp = customer.getAccounts();
         for (Account account : temp) {
             System.out.println(account);
         }
-
+    }
 
     public void registerAccount(String ownerName) {
         String bankNumber = createBankNumber();
@@ -104,7 +97,6 @@ public class Bank {
         Account newAccount = new Account(ownerName, bankNumber, this.bankName);
         bankAccounts.add(newAccount);
     }
-<<<<<<< HEAD
 
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
@@ -115,7 +107,3 @@ public class Bank {
     }
 
 }
-
-=======
-}
->>>>>>> 27545c6df2dd68e4584bef7736c5c6e1ff80436c
