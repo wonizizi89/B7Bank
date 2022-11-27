@@ -18,8 +18,19 @@ public class Bank {
         this.customers = new ArrayList<>();
     }
 
-    public void registerCustomer(Customer customer) {
-        customers.add(customer);
+    public boolean checkDuplicateID(String customerID) {
+        for (Customer customer : customers) {
+            if (customer.getCustomerId().equals(customerID)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void registerCustomer(String customerID, String password, String customerName) {
+        Customer newCustomer = new Customer(customerID, password, customerName);
+        customers.add(newCustomer);
     }
 
     public void reviseAccount(Customer customer) {
