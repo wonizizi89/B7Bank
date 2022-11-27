@@ -11,8 +11,5 @@ import bank.controller.History;
 import bank.view.BankingView;
 
 public class Main {
-    public static void main(String[] args) {
-
-    }
 
 }
