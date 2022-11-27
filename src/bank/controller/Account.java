@@ -10,14 +10,14 @@ import java.util.Scanner;
 public class Account {
     private String ownerName;
     private String accountNumber;
-    private int balance;
+    private BigDecimal balance;
     private String bankName;
     private List<History> histories;
 
     public Account(String ownerName, String accountNumber, String bankName) {
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;
-        this.balance = 0;
+        this.balance = new BigDecimal(0);
         this.bankName = bankName;
         this.histories = new ArrayList<>();
     }
@@ -41,12 +41,12 @@ public class Account {
         return hypenAttacher.toString();
     }
 
-    public int getBalance() {
-        return balance;
+    public BigDecimal getBalance() {
+        return this.balance;
     }
 
     public String getBankName() {
-        return bankName;
+        return this.bankName;
     }
 
     public void addHistory(ETradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
@@ -97,19 +97,22 @@ public class Account {
         this.bankName = newBankName;
     }
 
-    public int withdraw(int amount) throws Exception {
-        if (this.balance < amount) {
-            throw new Exception("잔액이 모자랍니다.");
+    public BigDecimal withdraw(BigDecimal amount) {
+        if (this.balance.compareTo(amount) < 0) {
+             return BigDecimal.ZERO;
         } else {
-            this.balance -= amount;
+            this.balance = this.balance.subtract(amount);
+            addHistory(ETradeType.WITHDRAW, amount, this.balance, ownerName);
             return amount;
         }
     }
 
-    public void ReadDateTimeInHistory(History history) { //히스토리(거래내역)에서 해당일자,시간을 조회 및 해당금액 출력
+
+    public BigDecimal deposit(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+        addHistory(ETradeType.DEPOSIT, amount, this.balance, ownerName);
+        return amount;
     }
-
-
 
 }
 
