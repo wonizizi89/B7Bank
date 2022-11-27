@@ -28,6 +28,14 @@ public class Bank {
         return null;
     }
 
+    public boolean loginCustomer(Customer customer, String password) {
+        if (customer.getPassword().equals(password)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean checkDuplicateID(String customerID) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(customerID)) {
