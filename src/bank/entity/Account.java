@@ -29,10 +29,6 @@ public class Account {
         return this.ownerName;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
     public String getAccountNumberWithHypen() {
         StringBuilder hypenAttacher = new StringBuilder();
         hypenAttacher.append(accountNumber.substring(0, 3));
@@ -120,12 +116,6 @@ public class Account {
         }
 
         return historyBuilder.toString();
-    }
-
-    public void editAccount(String newOwnerName, String newAccountNumber, String newBankName) {
-        this.ownerName = newOwnerName;
-        this.accountNumber = newAccountNumber;
-        this.bankName = newBankName;
     }
 
     public BigDecimal withdraw(BigDecimal amount) {

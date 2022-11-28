@@ -10,7 +10,6 @@ import java.util.List;
 import java.math.BigDecimal;
 
 public class Main {
-    static List<Bank> banks = new ArrayList<>();
     public static void main(String[] args) {
 
         BankApp.registerBank("한국은행", BigDecimal.valueOf(0.01), "101");
@@ -26,7 +25,5 @@ public class Main {
         while (true) {
             LoginAndRegisterView.showBeginningUI();
         }
-
-
     }
 }
