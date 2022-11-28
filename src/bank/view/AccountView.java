@@ -139,8 +139,10 @@ public class AccountView {
         if (selectInt == 0) {
             ViewMethod.jump();
             showMainAccountUI(customer);
-        } else {
-            AccountApp.unregisterAccount(customer.getName(), selectInt - 1);
+            return;
+        }
+
+        if (AccountApp.unregisterAccount(customer.getCustomerId(), selectInt - 1)) {
             ViewMethod.jump();
             System.out.print("계좌 삭제중");
             for (int i = 0; i < 3; i++) {
@@ -154,6 +156,10 @@ public class AccountView {
             ViewMethod.jump();
             System.out.printf("계좌가 삭제되었습니다👍%s", System.lineSeparator(), System.lineSeparator());
             showMainAccountUI(customer);
+        } else {
+            ViewMethod.jump();
+            System.out.println("😮계좌에 잔액이 남아 삭제할 수 없습니다");
+            showDeleteAccountUI(customer);
         }
     }
 

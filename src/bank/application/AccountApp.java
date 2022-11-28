@@ -5,6 +5,7 @@ import bank.entity.Account;
 import bank.entity.Bank;
 import bank.entity.Customer;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class AccountApp {
@@ -27,11 +28,16 @@ public class AccountApp {
         return newAccount;
     }
 
-    public static void unregisterAccount(String ownerName, int accountIndex) {
-        Customer customer = CustomerApp.getCustomerOrNull(ownerName);
+    public static boolean unregisterAccount(String ownerId, int accountIndex) {
+        Customer customer = CustomerApp.getCustomerOrNull(ownerId);
         Account targetAccount = customer.getAccount(accountIndex);
-        customer.deleteCustomerAccount(targetAccount);
-        accounts.remove(targetAccount);
+        if (targetAccount.getBalance().compareTo(BigDecimal.ZERO) != 0) {
+            return false;
+        } else {
+            customer.deleteCustomerAccount(targetAccount);
+            accounts.remove(targetAccount);
+            return true;
+        }
     }
 
     public static Account getAccountByBankNumberOrNull(String bankNumber) {
