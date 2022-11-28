@@ -53,16 +53,8 @@ public class Bank {
         customers.add(newCustomer);
     }
 
-    public void reviseAccount(Customer customer) {
-    }
-
-    public void deleteAccount(Customer customer) {
-        for (Account account : bankAccounts) {
-            if (customer.getName().equals(account.getOwnerName())) {
-
-                bankAccounts.remove(customer);
-            }
-        }
+    public void deleteAccount(Account account) {
+        bankAccounts.remove(account);
     }
 
     public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
@@ -78,17 +70,14 @@ public class Bank {
         }
     }
 
-    public void registerAccount(Account ac1) {
-    }
-
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
-        List<Account> temp = customer.getAccounts();
+        List<Account> temp = customer.getCustomerAccounts();
         for (Account account : temp) {
             System.out.println(account);
         }
     }
 
-    public void registerAccount(String ownerName) {
+    public Account registerAccount(String ownerName) {
         String bankNumber = createBankNumber();
 
         for (Account Account : bankAccounts) {
@@ -99,13 +88,14 @@ public class Bank {
 
         Account newAccount = new Account(ownerName, bankNumber, this.bankName);
         bankAccounts.add(newAccount);
+        return newAccount;
     }
 
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
         bankNumBuilder.append("110");
-        bankNumBuilder.append((Math.random() * 100));
-        bankNumBuilder.append((Math.random() * 100000));
+        bankNumBuilder.append(String.format("%03d", (int)(Math.random() * 100)));
+        bankNumBuilder.append(String.format("%06d", (int)(Math.random() * 100000)));
         return bankNumBuilder.toString();
     }
 }
