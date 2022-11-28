@@ -229,5 +229,23 @@ public class BankingView {
             }
         }
     }
+
+    public static void showTransferUI(Bank bank, Customer customer, int index) {
+        Account account = customer.getAccount(index);
+
+        Scanner amountScanner = new Scanner(System.in);
+        System.out.println("========================================");
+        System.out.println("<되돌아 가려면 0번을 입력하세요.>");
+        System.out.println(String.format("<💰현재 잔고: %s원>", account.getBalance()));
+        System.out.print("송금할 계좌번호를 입력해주세요. : ");
+        String inputAccount = amountScanner.next();
+        Account yourAccount = bank.findAccountOrNull(inputAccount);
+        System.out.print("출금할 금액 : ");
+        String inputAmount = amountScanner.next();
+        BigDecimal amount = new BigDecimal(inputAmount);
+        account.sendMoney(account, yourAccount, amount);
+        System.out.println(String.format("💰잔고: %s원", account.getBalance()));
+        showBankingUI(bank, customer, index + 1);
+    }
 }
 

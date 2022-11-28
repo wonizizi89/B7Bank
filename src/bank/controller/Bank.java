@@ -89,6 +89,15 @@ public class Bank {
         return newAccount;
     }
 
+    public Account findAccountOrNull(String accountNumber){
+        for (Account bankAccount : bankAccounts) {
+            if(bankAccount.getAccountNumber().equals(accountNumber)){
+                return bankAccount;
+            }
+        }
+        return null;
+    }
+
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
         bankNumBuilder.append("110");
@@ -96,4 +105,6 @@ public class Bank {
         bankNumBuilder.append(String.format("%06d", (int)(Math.random() * 100000)));
         return bankNumBuilder.toString();
     }
+
+
 }
