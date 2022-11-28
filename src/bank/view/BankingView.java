@@ -72,9 +72,10 @@ public class BankingView {
         System.out.println("0. 돌아가기");
         System.out.println("1. 입금");
         System.out.println("2. 출금");
-        System.out.println("3. 잔고 확인");
-        System.out.println("4. 거래내역 확인");
-        System.out.println("5. 종료");
+        System.out.println("3. 송금");
+        System.out.println("4. 잔고 확인");
+        System.out.println("5. 거래내역 확인");
+        System.out.println("6. 종료");
         System.out.print("번호 입력 : ");
         String inputMove = moveScanner.next();
 
@@ -104,15 +105,19 @@ public class BankingView {
                 break;
             case 3:
                 ViewMethod.jump();
-                System.out.println("----------------------------------------");
-                System.out.println(String.format("%s💰잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalance()));
-                showBankingUI(bank, customer, index + 1);
+                showTransferUI(bank, customer, index);
                 break;
             case 4:
                 ViewMethod.jump();
-                showHistoriesUI(bank, customer, index);
+                System.out.println("----------------------------------------");
+                System.out.println(String.format("💰잔고: %s원", customer.getAccount(index).getBalance()));
+                showBankingUI(bank, customer, index + 1);
                 break;
             case 5:
+                ViewMethod.jump();
+                showHistoriesUI(bank, customer, index);
+                break;
+            case 6:
                 ViewMethod.jump();
                 ViewMethod.printExitMessage();
                 System.exit(0);
@@ -271,12 +276,35 @@ public class BankingView {
         System.out.print("송금할 계좌번호를 입력해주세요. : ");
         String inputAccount = amountScanner.next();
         Account yourAccount = bank.findAccountOrNull(inputAccount);
-        System.out.print("출금할 금액 : ");
+        if (yourAccount == null) {
+            ViewMethod.jump();
+            System.out.println("계좌를 찾을 수 없었습니다🥲");
+            showTransferUI(bank, customer, index);
+        }
+        System.out.print("송금할 금액 : ");
+
         String inputAmount = amountScanner.next();
+        for (int i = 0; i < inputAmount.length(); i++) {
+            char moveChar = inputAmount.charAt(i);
+            if (moveChar < 48 || moveChar > 57) {
+                ViewMethod.jump();
+                ViewMethod.printWrongTypingMessage();
+                showTransferUI(bank, customer, index);
+                return;
+            }
+        }
+
         BigDecimal amount = new BigDecimal(inputAmount);
-        account.sendMoney(account, yourAccount, amount);
-        System.out.println(String.format("💰잔고: %s원", account.getBalance()));
-        showBankingUI(bank, customer, index + 1);
+        if(account.sendMoney(yourAccount, amount)) {
+            ViewMethod.jump();
+            System.out.println(String.format("💸%s 님께 송금완료!", yourAccount.getOwnerName()));
+            System.out.println(String.format("💰잔고: %s원", account.getBalance()));
+            showBankingUI(bank, customer, ++index);
+        } else {
+            ViewMethod.jump();
+            System.out.println("잔액이 부족합니다😮");
+            showTransferUI(bank, customer, index);
+        }
     }
 }
 

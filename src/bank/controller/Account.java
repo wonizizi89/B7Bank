@@ -117,11 +117,14 @@ public class Account {
         return amount;
     }
 
-    public void sendMoney(Account myAccount, Account yourAccount, BigDecimal howMuch){
-        if(myAccount.withdraw(howMuch).compareTo(BigDecimal.ZERO)==0){
-            System.out.println("잔액이 부족합니다.");
+    public boolean sendMoney(Account yourAccount, BigDecimal amount){
+        if(withdraw(amount).compareTo(BigDecimal.ZERO)==0){
+            return false;
         } else{
-            yourAccount.deposit(howMuch);
+            yourAccount.deposit(amount);
+            addHistory(ETradeType.TRANSFER, amount, this.balance, ownerName);
+            yourAccount.addHistory(ETradeType.DEPOSIT, amount, yourAccount.balance, ownerName);
+            return true;
         }
     }
 }
