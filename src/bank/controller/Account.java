@@ -107,7 +107,6 @@ public class Account {
         }
     }
 
-
     public BigDecimal deposit(BigDecimal amount) {
         this.balance = this.balance.add(amount);
         addHistory(ETradeType.DEPOSIT, amount, this.balance, ownerName);

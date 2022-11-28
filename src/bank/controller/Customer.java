@@ -29,12 +29,15 @@ public class Customer {
         return name;
     }
 
-    public List<Account> getAccounts() {
+    public List<Account> getCustomerAccounts() {
         return customerAccounts;
     }
 
-    public Customer(String name, String customerId) {
-        this.name = name;
-        this.customerId = customerId;
+    public void addCustomerAccount(Account account) {
+        customerAccounts.add(account);
+    }
+
+    public Account getAccount(int index) {
+        return customerAccounts.get(index);
     }
 }
