@@ -14,12 +14,15 @@ public class Account {
     private String bankName;
     private List<History> histories;
 
-    public Account(String ownerName, String accountNumber, String bankName) {
+    private BigDecimal interestRate;
+
+    public Account(String ownerName, String accountNumber, String bankName, BigDecimal interestRate) {
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;
         this.balance = new BigDecimal(0);
         this.bankName = bankName;
         this.histories = new ArrayList<>();
+        this.interestRate = interestRate;
     }
 
     public String getOwnerName() {
@@ -36,13 +39,23 @@ public class Account {
         hypenAttacher.append("-");
         hypenAttacher.append(accountNumber.substring(3, 6));
         hypenAttacher.append("-");
-        hypenAttacher.append(accountNumber.substring(6, accountNumber.length()));
+        hypenAttacher.append(accountNumber.substring(6));
 
         return hypenAttacher.toString();
     }
 
     public BigDecimal getBalance() {
         return this.balance;
+    }
+
+    public String getBalanceApplyInterestRate() {
+        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        BigDecimal result = this.interestRate.add(BigDecimal.valueOf(1));
+        return decimalFormatter.format(this.balance.multiply(result));
+    }
+
+    public BigDecimal getInterestRate() {
+        return this.interestRate;
     }
 
     public String getBankName() {
