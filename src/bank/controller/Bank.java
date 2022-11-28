@@ -53,14 +53,8 @@ public class Bank {
         customers.add(newCustomer);
     }
 
-
-    public void deleteAccount(Customer customer) {
-        for (Account account : bankAccounts) {
-            if (customer.getName().equals(account.getOwnerName())) {
-
-                bankAccounts.remove(customer);
-            }
-        }
+    public void deleteAccount(Account account) {
+        bankAccounts.remove(account);
     }
 
     public void checkAccountByCustomerName(Customer customer) { //소유자 명으로 계좌 조회
@@ -83,7 +77,7 @@ public class Bank {
         }
     }
 
-    public void registerAccount(String ownerName) {
+    public Account registerAccount(String ownerName) {
         String bankNumber = createBankNumber();
 
         for (Account Account : bankAccounts) {
@@ -94,6 +88,7 @@ public class Bank {
 
         Account newAccount = new Account(ownerName, bankNumber, this.bankName);
         bankAccounts.add(newAccount);
+        return newAccount;
     }
 
     private String createBankNumber() {
