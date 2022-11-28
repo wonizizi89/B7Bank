@@ -152,7 +152,7 @@ public class BankingView {
                 account.getAccountNumberWithHypen()));
         System.out.println("========================================");
         System.out.println("<되돌아 가려면 0번을 입력하세요.>");
-        System.out.print(String.format(" 입금할 금액(이율이 %s 입니다.) : ",
+        System.out.print(String.format(" 입금할 금액(이율이 %s % 입니다.) : ",
                 decimalFormatter.format(account.getInterestRate())));
         String inputAmount = amountScanner.next();
 
