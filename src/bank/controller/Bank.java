@@ -91,10 +91,6 @@ public class Bank {
         return newAccount;
     }
 
-    public void addAccount(Account account) {
-        bankAccounts.add(account);
-    }
-
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
         bankNumBuilder.append("110");
