@@ -22,9 +22,9 @@ public class AccountView {
         if(s.equals("1")){
             BankingView.showAccountListUI(bank, customer);
         } else if(s.equals("2")){
-            ManageAccountView.showCreateAccountUI(bank, customer);
+            showCreateAccountUI(bank, customer);
         } else if(s.equals("3")){
-            ManageAccountView.showDeleteAccountUI(bank, customer);
+            showDeleteAccountUI(bank, customer);
         } else if(s.equals("4")){
             LoginAndRegisterView.showUIBeginning();
         } else if(s.equals("5")){
