@@ -1,7 +1,6 @@
-package bank.controller;
+package bank.entity;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -100,14 +99,6 @@ public class Bank {
             }
         }
         return null;
-    }
-
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
-    }
-
-    public void addAccount(Account account) {
-        bankAccounts.add(account);
     }
 
     private String createBankNumber() {

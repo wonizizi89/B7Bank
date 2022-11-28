@@ -1,4 +1,4 @@
-package bank.controller;
+package bank.entity;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;

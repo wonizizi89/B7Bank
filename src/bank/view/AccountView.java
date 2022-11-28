@@ -3,9 +3,9 @@ package bank.view;
 import java.util.List;
 import java.util.Scanner;
 
-import bank.controller.Account;
-import bank.controller.Bank;
-import bank.controller.Customer;
+import bank.entity.Account;
+import bank.entity.Bank;
+import bank.entity.Customer;
 
 public class AccountView {
     public static void showMainAccountUI(Bank bank, Customer customer){
@@ -57,8 +57,7 @@ public class AccountView {
             System.out.print(".");
         }
         ViewMethod.jump();
-        System.out.println("----------------------------------------");
-        System.out.printf("%s생성 완료 되었습니다👍%s", System.lineSeparator(), System.lineSeparator());
+        System.out.println("생성 완료 되었습니다👍");
         Account newAccount = bank.registerAccount(customer.getName());
         customer.addCustomerAccount(newAccount);
         System.out.printf("🤑%s%s",newAccount.getAccountNumberWithHypen(), System.lineSeparator());
