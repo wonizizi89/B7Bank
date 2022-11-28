@@ -2,7 +2,6 @@ package bank.view;
 
 import bank.controller.Bank;
 import bank.controller.Customer;
-import bank.view.MainView;
 
 import java.util.Scanner;
 
@@ -24,7 +23,7 @@ public class LoginAndRegisterView {
                 showLoginUI(bank);
                 break;
             case "2":
-                showUIRegisterCustomer(bank);
+                showRegisterCustomerUI(bank);
                 break;
             case "3":
                 System.out.println("프로그램을 종료합니다.");
@@ -62,14 +61,14 @@ public class LoginAndRegisterView {
 
         if (bank.loginCustomer(customer, password)) {
             System.out.println("로그인 되었습니다.");
-            MainView.showMainUI(bank, customer);
+            AccountView.showMainAccountUI(bank, customer);
         } else {
             System.out.println("비밀번호가 틀립니다.");
             showLoginUI(bank);
         }
     }
 
-    public void showUIRegisterCustomer(Bank bank) {
+    public void showRegisterCustomerUI(Bank bank) {
         System.out.println("----------회원가입 페이지 입니다----------");
         System.out.println("(되돌아 가려면 0번을 입력하세요.)");
         System.out.print("ID을 입력해주세요 : ");
@@ -97,7 +96,7 @@ public class LoginAndRegisterView {
 
         } else {
             System.out.println("중복된 ID 입니다. 다시 입력해주세요");
-            showUIRegisterCustomer(bank);
+            showRegisterCustomerUI(bank);
         }
 
         System.out.println("회원가입이 완료되었습니다!");
