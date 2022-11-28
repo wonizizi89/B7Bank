@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Account {
-    DecimalFormat decimalFormatter = new DecimalFormat("0.##");
     private String ownerName;
     private String accountNumber;
     private BigDecimal balance;
@@ -47,7 +46,12 @@ public class Account {
 
     public BigDecimal getBalance() {
         return this.balance;
-//        return this.balance.multiply(this.interestRate.add());
+    }
+
+    public String getBalanceApplyInterestRate() {
+        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        BigDecimal result = this.interestRate.add(BigDecimal.valueOf(1));
+        return decimalFormatter.format(this.balance.multiply(result));
     }
 
     public BigDecimal getInterestRate() {
@@ -69,7 +73,7 @@ public class Account {
 
     public String printAllHistoriesOrNull() {
         StringBuilder historyBuilder = new StringBuilder();
-//        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
 
         for (int i = 0; i < histories.size(); i++) {
             History singleHistory = histories.get(i);
