@@ -26,7 +26,7 @@ public class AccountView {
         } else if(s.equals("3")){
             showDeleteAccountUI(bank, customer);
         } else if(s.equals("4")){
-            LoginAndRegisterView.showUIBeginning();
+            LoginAndRegisterView.showBeginningUI();
         } else if(s.equals("5")){
             System.out.println("프로그램을 종료합니다.");
             System.exit(0);
