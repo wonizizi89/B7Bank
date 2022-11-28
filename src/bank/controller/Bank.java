@@ -53,8 +53,6 @@ public class Bank {
         customers.add(newCustomer);
     }
 
-    public void reviseAccount(Customer customer) {
-    }
 
     public void deleteAccount(Customer customer) {
         for (Account account : bankAccounts) {
@@ -76,9 +74,6 @@ public class Bank {
 
             }
         }
-    }
-
-    public void registerAccount(Account ac1) {
     }
 
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
