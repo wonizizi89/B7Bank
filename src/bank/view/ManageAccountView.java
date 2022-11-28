@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 public class ManageAccountView {
 
-    public void showCreateAccountView(Bank bank, Customer customer) {
+    public static void showCreateAccountUI(Bank bank, Customer customer) {
         System.out.println("--------------------------------");
         System.out.println("계좌를 만드는 중입니다.");
         Account newAccount = bank.registerAccount(customer.getName());
         customer.addCustomerAccount(newAccount);
         System.out.println(newAccount.getAccountNumberWithHypen());
-        System.out.println("이전 뷰로 되돌아감");
+        MainView.showMainUI(bank, customer);
     }
 
-    public void showDeleteAccountView(Bank bank, Customer customer) {
+    public static void showDeleteAccountUI(Bank bank, Customer customer) {
         Scanner selectScanner = new Scanner(System.in);
 
         System.out.println("--------------------------------");
@@ -36,21 +36,21 @@ public class ManageAccountView {
             char moveChar = selectInput.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
                 System.out.println(" 잘 못 입력되었습니다.");
-                showDeleteAccountView(bank, customer);
+                showDeleteAccountUI(bank, customer);
                 return;
             }
         }
 
         int selectInt = Integer.parseInt(selectInput);
 
-        if (selectInt > accounts.size()) {
+        if ( selectInt < 0 || selectInt > accounts.size()) {
             System.out.println("잘 못 입력되었습니다.");
-            showDeleteAccountView(bank, customer);
+            showDeleteAccountUI(bank, customer);
             return;
         }
 
         if (selectInt == 0 ) {
-            System.out.println("이전 뷰로 되돌아감");
+            MainView.showMainUI(bank, customer);
         } else {
             Account targetAccount = customer.getAccount(selectInt - 1);
             bank.deleteAccount(targetAccount);

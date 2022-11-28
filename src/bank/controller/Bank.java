@@ -94,8 +94,8 @@ public class Bank {
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
         bankNumBuilder.append("110");
-        bankNumBuilder.append((Math.random() * 100));
-        bankNumBuilder.append((Math.random() * 100000));
+        bankNumBuilder.append(String.format("%03d", (int)(Math.random() * 100)));
+        bankNumBuilder.append(String.format("%06d", (int)(Math.random() * 100000)));
         return bankNumBuilder.toString();
     }
 }
