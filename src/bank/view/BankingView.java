@@ -24,7 +24,6 @@ public class BankingView {
                 System.out.println("잘못된 입력 입니다.");
                 //return  되돌아가기 기능 구현
             } else {
-
                 switch (inputNum) {
                     case "1":
                         System.out.println(" 입금 : " + "입금금액변수 " + "원");
