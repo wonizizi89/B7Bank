@@ -23,35 +23,45 @@ public class AccountView {
         String s = scanner.nextLine();
 
         if(s.equals("1")){
+            ViewMethod.jump();
             BankingView.showAccountListUI(bank, customer);
         } else if(s.equals("2")){
+            ViewMethod.jump();
             showCreateAccountUI(bank, customer);
         } else if(s.equals("3")){
+            ViewMethod.jump();
             showDeleteAccountUI(bank, customer);
         } else if(s.equals("4")){
+            ViewMethod.jump();
             System.out.println("로그아웃 되었습니다🙋");
             LoginAndRegisterView.showBeginningUI(bank);
         } else if(s.equals("5")){
-            System.out.println("프로그램을 종료합니다🙋");
-            System.out.println("🎈같이하는 가치, Seven Bank🎈");
+            ViewMethod.jump();
+            ViewMethod.printExitMessage();
             System.exit(0);
         } else {
-            System.out.println("잘못된 입력입니다🥲.");
-            System.out.println("번호를 다시 입력해주세요");
+            ViewMethod.jump();
+            ViewMethod.printWrongTypingMessage();
             showMainAccountUI(bank, customer);
         }
     }
 
     public static void showCreateAccountUI(Bank bank, Customer customer) {
-        System.out.println("========================================");
         System.out.print("계좌 생성중");
-        System.out.print(".");
-        System.out.print(".");
-        System.out.println(".");
-        System.out.println("생성 완료 되었습니다👍");
+        for (int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("showCreateAccountUI[line, 50] : InterruptException!");
+            }
+            System.out.print(".");
+        }
+        ViewMethod.jump();
+        System.out.println("----------------------------------------");
+        System.out.printf("%s생성 완료 되었습니다👍%s", System.lineSeparator(), System.lineSeparator());
         Account newAccount = bank.registerAccount(customer.getName());
         customer.addCustomerAccount(newAccount);
-        System.out.println(newAccount.getAccountNumberWithHypen());
+        System.out.printf("🤑%s%s",newAccount.getAccountNumberWithHypen(), System.lineSeparator());
         showMainAccountUI(bank, customer);
     }
 
@@ -73,8 +83,8 @@ public class AccountView {
         for (int i = 0; i < selectInput.length(); i++) {
             char moveChar = selectInput.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
-                System.out.println("잘못된 입력입니다🥲.");
-                System.out.println("번호를 다시 입력해주세요");
+                ViewMethod.jump();
+                ViewMethod.printWrongTypingMessage();
                 showDeleteAccountUI(bank, customer);
                 return;
             }
@@ -83,30 +93,35 @@ public class AccountView {
         int selectInt = Integer.parseInt(selectInput);
 
         if ( selectInt < 0 || selectInt > accounts.size()) {
-            System.out.println("잘못된 입력입니다🥲.");
-            System.out.println("번호를 다시 입력해주세요");
+            ViewMethod.jump();
+            ViewMethod.printWrongTypingMessage();
             showDeleteAccountUI(bank, customer);
             return;
         }
 
         if (selectInt == 0 ) {
+            ViewMethod.jump();
             showMainAccountUI(bank, customer);
         } else {
             Account targetAccount = customer.getAccount(selectInt - 1);
             bank.deleteAccount(targetAccount);
             customer.deleteCustomerAccount(targetAccount);
+            ViewMethod.jump();
             System.out.print("계좌 삭제중");
-            System.out.print(".");
-            System.out.print(".");
-            System.out.println(".");
-            System.out.println(String.format("계좌가 삭제되었습니다👍", targetAccount.getAccountNumberWithHypen()));
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("showCreateAccountUI[line, 50] : InterruptException!");
+                }
+                System.out.print(".");
+            }
+            ViewMethod.jump();
+            System.out.println("----------------------------------------");
+            System.out.printf("%s계좌가 삭제되었습니다👍%s", System.lineSeparator(), System.lineSeparator());
             showMainAccountUI(bank, customer);
         }
     }
 
-    private static void jump() {
-        for (int i = 0; i < 30; i++) {
-            System.out.println("");
-        }
-    }
+
 }

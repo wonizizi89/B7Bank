@@ -6,7 +6,6 @@ import bank.view.LoginAndRegisterView;
 
 public class Main {
     public static void main(String[] args) {
-
         LoginAndRegisterView.printLogo();
         Bank bank = new Bank("세븐뱅크");
         bank.registerCustomer("pororo", "1234", "뽀로로");
