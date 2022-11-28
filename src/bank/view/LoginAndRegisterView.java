@@ -1,5 +1,8 @@
 package bank.view;
 
+import bank.application.AccountApp;
+import bank.application.BankApp;
+import bank.application.CustomerApp;
 import bank.entity.Bank;
 import bank.entity.Customer;
 
@@ -16,7 +19,7 @@ public class LoginAndRegisterView {
         System.out.println("╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝");
     }
 
-    public static void showBeginningUI(Bank bank) { // 초기 시작화면을 보여주는 UI
+    public static void showBeginningUI() { // 초기 시작화면을 보여주는 UI
         Scanner inputSc = new Scanner(System.in);
 
         System.out.println("********** Seven Bank 에 오신걸 환영합니다. **********");
@@ -31,11 +34,11 @@ public class LoginAndRegisterView {
         switch (num) {
             case "1":
                 ViewMethod.jump();
-                showLoginUI(bank);
+                showLoginUI();
                 break;
             case "2":
                 ViewMethod.jump();
-                showRegisterCustomerUI(bank);
+                showRegisterCustomerUI();
                 break;
             case "3":
                 ViewMethod.jump();
@@ -45,24 +48,12 @@ public class LoginAndRegisterView {
             default:
                 ViewMethod.jump();
                 ViewMethod.printWrongTypingMessage();
-                showBeginningUI(bank);
+                showBeginningUI();
                 break;
         }
     }
 
-    public static void showSelectBankUI() {
-        System.out.println("========== 로그인 페이지 입니다. ==========");
-        System.out.println("<되돌아 가려면 0번을 입력하세요.>");
-        System.out.println("1. KB국민은행");
-        System.out.println("2. 신한은행");
-        System.out.println("3. 우리은행");
-        System.out.println("4. Citibank");
-        System.out.println("5. KEB 하나은행");
-        System.out.println("6. IBK 기업은행");
-        System.out.println("7. 카카오뱅크");
-    }
-
-    public static void showLoginUI(Bank bank) {
+    public static void showLoginUI() {
         Scanner inputSc = new Scanner(System.in);
 
         System.out.println("========== 로그인 페이지 입니다. ==========");
@@ -72,14 +63,14 @@ public class LoginAndRegisterView {
 
         if(customerID.equals("0")) {
             ViewMethod.jump();
-            showBeginningUI(bank);
+            showBeginningUI();
         }
 
-        Customer customer = bank.getCustomerOrNull(customerID);
+        Customer customer = CustomerApp.getCustomerOrNull(customerID);
         if (customer == null) {
             ViewMethod.jump();
             System.out.println("존재하지 않는 아이디입니다😮");
-            showLoginUI(bank);
+            showLoginUI();
         }
 
         System.out.print("PASSWORD : ");
@@ -87,21 +78,21 @@ public class LoginAndRegisterView {
 
         if(password.equals("0")) {
             ViewMethod.jump();
-            showBeginningUI(bank);
+            showBeginningUI();
         }
 
-        if (bank.loginCustomer(customer, password)) {
+        if (CustomerApp.loginCustomer(customer, password)) {
             ViewMethod.jump();
             System.out.println("로그인 되었습니다😉");
-            AccountView.showMainAccountUI(bank, customer);
+            AccountView.showMainAccountUI(customer);
         } else {
             ViewMethod.jump();
             System.out.println("비밀번호가 틀립니다😓");
-            showLoginUI(bank);
+            showLoginUI();
         }
     }
 
-    public static void showRegisterCustomerUI(Bank bank) {
+    public static void showRegisterCustomerUI() {
         Scanner inputSc = new Scanner(System.in);
 
         System.out.println("========== 회원가입 페이지 입니다 ==========");
@@ -111,17 +102,17 @@ public class LoginAndRegisterView {
 
         if(newCustomerID.equals("0")) {
             ViewMethod.jump();
-            showBeginningUI(bank);
+            showBeginningUI();
             return;
         }
 
-        if (bank.checkDuplicateID(newCustomerID)) {
+        if (CustomerApp.checkDuplicateID(newCustomerID)) {
             System.out.print("PASSWORD : ");
             String newCustomerPassword = inputSc.next();
 
             if(newCustomerPassword.equals("0")) {
                 ViewMethod.jump();
-                showBeginningUI(bank);
+                showBeginningUI();
                 return;
             }
 
@@ -130,21 +121,21 @@ public class LoginAndRegisterView {
 
             if(customerName.equals("0")) {
                 ViewMethod.jump();
-                showBeginningUI(bank);
+                showBeginningUI();
                 return;
             }
 
-            bank.registerCustomer(newCustomerID, newCustomerPassword, customerName);
+            CustomerApp.registerCustomer(newCustomerID, newCustomerPassword, customerName);
         } else {
             ViewMethod.jump();
             System.out.println("중복된 ID 입니다🥲");
             System.out.println("다시 입력해주세요.");
-            showRegisterCustomerUI(bank);
+            showRegisterCustomerUI();
             return;
         }
 
         ViewMethod.jump();
         System.out.println("회원가입이 완료되었습니다!!😊");
-        showLoginUI(bank);
+        showLoginUI();
     }
 }

@@ -8,14 +8,16 @@ import java.util.List;
 
 public class Account {
     private String ownerName;
+    private String ownerId;
     private String accountNumber;
     private BigDecimal balance;
     private String bankName;
     private List<History> histories;
     private BigDecimal interestRate;
 
-    public Account(String ownerName, String accountNumber, String bankName, BigDecimal interestRate) {
+    public Account(String ownerName, String ownerId, String accountNumber, String bankName, BigDecimal interestRate) {
         this.ownerName = ownerName;
+        this.ownerId = ownerId;
         this.accountNumber = accountNumber;
         this.balance = new BigDecimal(0);
         this.bankName = bankName;
@@ -64,14 +66,18 @@ public class Account {
         return this.histories;
     }
 
-    public void addHistory(ETradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
-        History history = new History(OffsetDateTime.now(), this.accountNumber, type, amount, balance, traderName);
+    public void addHistory(ETradeType type, BigDecimal amount, BigDecimal fee, BigDecimal afterBalance, String traderName) {
+        History history = new History(OffsetDateTime.now(), this.accountNumber, type, amount, fee, afterBalance, traderName);
         histories.add(history);
     }
 
     public String printAllHistoriesOrNull() {
         StringBuilder historyBuilder = new StringBuilder();
         DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+
+        if (histories.size() == 0) {
+            return null;
+        }
 
         for (int i = 0; i < histories.size(); i++) {
             History singleHistory = histories.get(i);
@@ -101,13 +107,17 @@ public class Account {
         historyBuilder.append(String.format("거래금액: %s%s", decimalFormatter.format(targetHistory.getAmount()),
                 System.lineSeparator()));
         if (targetHistory.getType() == ETradeType.DEPOSIT) {
-            historyBuilder.append(String.format("거래후 잔액: +%s%s", decimalFormatter.format(targetHistory.getBalance()),
+            historyBuilder.append(String.format("거래후 잔액: +%s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
                     System.lineSeparator()));
         } else {
-            historyBuilder.append(String.format("거래후 잔액: -%s%s", decimalFormatter.format(targetHistory.getBalance()),
+            historyBuilder.append(String.format("거래후 잔액: -%s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
                     System.lineSeparator()));
         }
         historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
+
+        if (targetHistory.getFee().compareTo(BigDecimal.ZERO) != 0) {
+            historyBuilder.append(String.format("수수료: %s%s", System.lineSeparator(), targetHistory.getFee()));
+        }
 
         return historyBuilder.toString();
     }
@@ -123,25 +133,27 @@ public class Account {
              return BigDecimal.ZERO;
         } else {
             this.balance = this.balance.subtract(amount);
-            addHistory(ETradeType.WITHDRAW, amount, this.balance, ownerName);
+            addHistory(ETradeType.WITHDRAW, amount, BigDecimal.ZERO, this.balance, ownerName);
             return amount;
         }
     }
 
     public BigDecimal deposit(BigDecimal amount) {
         this.balance = this.balance.add(amount);
-        addHistory(ETradeType.DEPOSIT, amount, this.balance, ownerName);
+        addHistory(ETradeType.DEPOSIT, amount, BigDecimal.ZERO, this.balance, ownerName);
         return amount;
     }
 
-    public boolean transfer(Account yourAccount, BigDecimal amount){
-        if (this.balance.compareTo(amount) < 0) {
+    public boolean transfer(Account yourAccount, BigDecimal amount, BigDecimal fee){
+        BigDecimal finalAmount = amount.add(fee);
+
+        if (this.balance.compareTo(finalAmount) < 0) {
             return false;
         } else {
-            this.balance = this.balance.subtract(amount);
-            yourAccount.balance = yourAccount.balance.add(amount);
-            addHistory(ETradeType.TRANSFER, amount, this.balance, ownerName);
-            yourAccount.addHistory(ETradeType.DEPOSIT, amount, yourAccount.balance, ownerName);
+            this.balance = this.balance.subtract(finalAmount);
+            yourAccount.balance = yourAccount.balance.add(finalAmount);
+            addHistory(ETradeType.TRANSFER, amount, fee, this.balance, ownerName);
+            yourAccount.addHistory(ETradeType.DEPOSIT, amount, fee, yourAccount.balance, ownerName);
             return true;
         }
     }
