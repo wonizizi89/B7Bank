@@ -8,10 +8,11 @@ import java.util.HashMap;
 public class CustomerApp {
     private static HashMap<String, Customer> customers = new HashMap<>();
 
-    public static void registerCustomer(String customerID, String password, String customerName) {
+    public static Customer registerCustomer(String customerID, String password, String customerName) {
         Customer newCustomer = new Customer(customerID, password, customerName);
         customers.put(customerID, newCustomer);
         CustomerDB.addCustomer(newCustomer);
+        return newCustomer;
     }
 
     public static Customer getCustomerOrNull(String customerID) {

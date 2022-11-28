@@ -5,7 +5,6 @@ import bank.entity.Bank;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.UUID;
 
 public class BankApp {
     private static HashMap<String, Bank> banks = new HashMap<>();

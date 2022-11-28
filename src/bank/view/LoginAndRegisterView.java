@@ -1,9 +1,6 @@
 package bank.view;
 
-import bank.application.AccountApp;
-import bank.application.BankApp;
 import bank.application.CustomerApp;
-import bank.entity.Bank;
 import bank.entity.Customer;
 
 import java.util.Scanner;

@@ -1,12 +1,11 @@
 package bank;
 
 
+import bank.application.AccountApp;
 import bank.application.BankApp;
 import bank.application.CustomerApp;
-import bank.entity.Bank;
+import bank.entity.Account;
 import bank.view.LoginAndRegisterView;
-import java.util.ArrayList;
-import java.util.List;
 import java.math.BigDecimal;
 
 public class Main {
@@ -19,6 +18,10 @@ public class Main {
         BankApp.registerBank("우리은행", BigDecimal.valueOf(0.01), "020");
         BankApp.registerBank("신한은행", BigDecimal.valueOf(0.01), "110");
         BankApp.registerBank("카카오뱅크", BigDecimal.valueOf(0.02), "099");
+
+        CustomerApp.registerCustomer("pororo", "1234", "뽀로로");
+        Account account = AccountApp.registerAccount("pororo", 6);
+        account.deposit(BigDecimal.valueOf(10_000));
 
         LoginAndRegisterView.printLogo();
 

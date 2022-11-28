@@ -51,7 +51,7 @@ public class BankingView {
         }
 
         int moveInt = Integer.parseInt(inputMove);
-        if (moveInt < 0 || moveInt > accounts.size()) {
+        if (moveInt < 0 || moveInt > accounts.size() + 1) {
             ViewMethod.jump();
             ViewMethod.printWrongTypingMessage();
             showAccountListUI(customer);
