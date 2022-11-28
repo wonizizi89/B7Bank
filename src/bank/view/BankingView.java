@@ -50,7 +50,7 @@ public class BankingView {
         }
 
         if (moveInt == 0) {
-            MainView.showMainUI(bank, customer);
+            AccountView.showMainAccountUI(bank, customer);
         } else {
             showBankingUI(bank, customer, moveInt);
         }
