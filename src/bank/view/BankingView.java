@@ -138,10 +138,10 @@ public class BankingView {
     // 입금
     public static void showDepositUI(Bank bank, Customer customer, int index) {
         Scanner amountScanner = new Scanner(System.in);
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("#");
         System.out.println("========================================");
         System.out.println("<되돌아 가려면 0번을 입력하세요.>");
-        System.out.print(String.format(" 입금할 금액(이율이 %s 입니다.) : ", decimalFormatter.format(customer.getAccount(index).getInterestRate())));
+        System.out.print(String.format(" 입금할 금액(이율은 %s % 입니다.) : ", decimalFormatter.format(customer.getAccount(index).getInterestRate())));
         String inputAmount = amountScanner.next();
 
         for (int i = 0; i < inputAmount.length(); i++) {
