@@ -3,6 +3,7 @@ package bank.view;
 import bank.controller.Bank;
 import bank.controller.Customer;
 
+import javax.swing.text.View;
 import java.util.Scanner;
 
 public class LoginAndRegisterView {
@@ -30,19 +31,21 @@ public class LoginAndRegisterView {
 
         switch (num) {
             case "1":
+                ViewMethod.jump();
                 showLoginUI(bank);
                 break;
             case "2":
+                ViewMethod.jump();
                 showRegisterCustomerUI(bank);
                 break;
             case "3":
-                System.out.println("프로그램을 종료합니다🙋");
-                System.out.println("🎈같이하는 가치, Seven Bank🎈");
+                ViewMethod.jump();
+                ViewMethod.printExitMessage();
                 System.exit(0);
                 break;
             default:
-                System.out.println("잘못된 입력입니다🥲.");
-                System.out.println("번호를 다시 입력해주세요");
+                ViewMethod.jump();
+                ViewMethod.printWrongTypingMessage();
                 showBeginningUI(bank);
                 break;
         }
@@ -57,11 +60,13 @@ public class LoginAndRegisterView {
         String customerID = inputSc.next();
 
         if(customerID.equals("0")) {
+            ViewMethod.jump();
             showBeginningUI(bank);
         }
 
         Customer customer = bank.getCustomerOrNull(customerID);
         if (customer == null) {
+            ViewMethod.jump();
             System.out.println("존재하지 않는 아이디입니다😮");
             showLoginUI(bank);
         }
@@ -70,14 +75,16 @@ public class LoginAndRegisterView {
         String password = inputSc.next();
 
         if(password.equals("0")) {
+            ViewMethod.jump();
             showBeginningUI(bank);
         }
 
         if (bank.loginCustomer(customer, password)) {
-            jump();
+            ViewMethod.jump();
             System.out.println("로그인 되었습니다😉");
             AccountView.showMainAccountUI(bank, customer);
         } else {
+            ViewMethod.jump();
             System.out.println("비밀번호가 틀립니다😓");
             showLoginUI(bank);
         }
@@ -92,6 +99,7 @@ public class LoginAndRegisterView {
         String newCustomerID = inputSc.next();
 
         if(newCustomerID.equals("0")) {
+            ViewMethod.jump();
             showBeginningUI(bank);
         }
 
@@ -100,6 +108,7 @@ public class LoginAndRegisterView {
             String newCustomerPassword = inputSc.next();
 
             if(newCustomerPassword.equals("0")) {
+                ViewMethod.jump();
                 showBeginningUI(bank);
             }
 
@@ -108,22 +117,19 @@ public class LoginAndRegisterView {
             bank.registerCustomer(newCustomerID, newCustomerPassword, customerName);
 
             if(customerName.equals("0")) {
+                ViewMethod.jump();
                 showBeginningUI(bank);
             }
 
         } else {
+            ViewMethod.jump();
             System.out.println("중복된 ID 입니다🥲");
             System.out.println("다시 입력해주세요.");
             showRegisterCustomerUI(bank);
         }
 
+        ViewMethod.jump();
         System.out.println("회원가입이 완료되었습니다!!😊");
         showLoginUI(bank);
-    }
-
-    private static void jump() {
-        for (int i = 0; i < 30; i++) {
-            System.out.println("");
-        }
     }
 }

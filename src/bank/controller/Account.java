@@ -49,6 +49,10 @@ public class Account {
         return this.bankName;
     }
 
+    public List<History> getHistories() {
+        return this.histories;
+    }
+
     public void addHistory(ETradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
         History history = new History(OffsetDateTime.now(), this.accountNumber, type, amount, balance, traderName);
         histories.add(history);
