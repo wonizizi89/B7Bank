@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 public class Main {
     public static void main(String[] args) {
-
         LoginAndRegisterView.printLogo();
         Bank bank = new Bank("세븐뱅크", new BigDecimal(0.01));
         bank.registerCustomer("pororo", "1234", "뽀로로");

@@ -12,7 +12,9 @@ public class Bank {
     private List<Customer> customers;
     private BigDecimal interestRate;
 
+
     public Bank(String bankName, BigDecimal interestRate) {
+
         this.bankName = bankName;
         this.bankAccounts = new ArrayList<>();
         this.customers = new ArrayList<>();
@@ -68,12 +70,14 @@ public class Bank {
             }
         }
     }
+
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
         List<Account> temp = customer.getCustomerAccounts();
         for (Account account : temp) {
             System.out.println(account);
         }
     }
+
     public Account registerAccount(String ownerName) {
         String bankNumber = createBankNumber();
 
@@ -88,6 +92,15 @@ public class Bank {
         return newAccount;
     }
 
+    public Account findAccountOrNull(String accountNumber){
+        for (Account bankAccount : bankAccounts) {
+            if(bankAccount.getAccountNumber().equals(accountNumber)){
+                return bankAccount;
+            }
+        }
+        return null;
+    }
+
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
         bankNumBuilder.append("110");
@@ -95,4 +108,6 @@ public class Bank {
         bankNumBuilder.append(String.format("%06d", (int)(Math.random() * 100000)));
         return bankNumBuilder.toString();
     }
+
+
 }
