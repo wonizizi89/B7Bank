@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BankingView {
-    Scanner inputSc = new Scanner(System.in);
-
 
     // 소유한 계좌 목록을 보여주는 뷰
     public void showAccountListUI(Customer customer) {
@@ -172,12 +170,14 @@ public class BankingView {
 
     // 모든 거래내역을 보는 뷰
     public void showHistoriesUI(Account account) {
+        Scanner moveScanner = new Scanner(System.in);
+
         System.out.println("--------------------------------");
         System.out.println("0. 돌아가기");
         System.out.print(account.printAllHistoriesOrNull());
         System.out.println("--------------------------------");
         System.out.println("상세 거래 내역을 보려면 번호를 입력해주세요.");
-        String move = inputSc.next();
+        String move = moveScanner.next();
 
         // 입력 받은 문자열이 숫자가 맞는지 확인!
         for (int i = 0; i < move.length(); i++) {
@@ -196,11 +196,13 @@ public class BankingView {
 
     // 특정 거래내역을 상세로 보는 뷰
     public void showHistory(Account account, int index) {
+        Scanner moveScanner = new Scanner(System.in);
+
         System.out.println("--------------------------------");
         System.out.println(String.format("%s%s", account.printHistory(index), System.lineSeparator()));
         System.out.println("0. 돌아가기");
         System.out.println("--------------------------------");
-        String move = inputSc.next();
+        String move = moveScanner.next();
         // 입력 받은 문자열이 0인지 확인!
         for (int i = 0; i < move.length(); i++) {
             char moveChar = move.charAt(i);

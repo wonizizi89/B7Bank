@@ -37,6 +37,10 @@ public class Customer {
         customerAccounts.add(account);
     }
 
+    public void deleteCustomerAccount(Account account) {
+        customerAccounts.remove(account);
+    }
+
     public Account getAccount(int index) {
         return customerAccounts.get(index);
     }
