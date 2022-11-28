@@ -2,6 +2,7 @@ package bank.view;
 
 import bank.controller.Bank;
 import bank.controller.Customer;
+import bank.view.MainView;
 
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class LoginAndRegisterView {
 
         if(bank.loginCustomer(customer, password)) {
             System.out.println("로그인 되었습니다.");
+            MainView.mainView();
         } else {
             System.out.println("비밀번호가 틀립니다.");
         }
