@@ -82,7 +82,7 @@ public class Bank {
     }
 
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
-        List<Account> temp = customer.getAccounts();
+        List<Account> temp = customer.getCustomerAccounts();
         for (Account account : temp) {
             System.out.println(account);
         }
