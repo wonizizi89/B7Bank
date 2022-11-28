@@ -52,8 +52,6 @@ public class Bank {
         customers.add(newCustomer);
     }
 
-    public void reviseAccount(Customer customer) {
-    }
 
     public void deleteAccount(Customer customer) {
         for (Account account : bankAccounts) {
@@ -73,9 +71,6 @@ public class Bank {
                 System.out.printf("은행 : %s, 계좌번호 : %s, 잔고 : %d원", bankName, accountNum, balance);
             }
         }
-    }
-
-    public void registerAccount(Account ac1) {
     }
 
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
