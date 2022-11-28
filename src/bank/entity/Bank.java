@@ -21,6 +21,18 @@ public class Bank {
         this.interestRate = interestRate;
     }
 
+    public String getBankName() {
+        return this.bankName;
+    }
+
+    public String getBankCode() {
+        return this.bankCode;
+    }
+
+    public BigDecimal getInterestRate() {
+        return this.interestRate;
+    }
+
     public Customer getCustomerOrNull(String customerID) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(customerID)) {
@@ -76,20 +88,6 @@ public class Bank {
         for (Account account : temp) {
             System.out.println(account);
         }
-    }
-
-    public Account registerAccount(String ownerName) {
-        String bankNumber = createBankNumber();
-
-        for (Account Account : bankAccounts) {
-            if (Account.getAccountNumber().equals(bankNumber)) {
-                bankNumber = createBankNumber();
-            }
-        }
-
-        Account newAccount = new Account(ownerName, bankNumber, this.bankName, this.interestRate);
-        bankAccounts.add(newAccount);
-        return newAccount;
     }
 
     public Account findAccountOrNull(String accountNumber){

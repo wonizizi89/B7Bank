@@ -9,24 +9,22 @@ public class History {
     private String accountNumber;
     private ETradeType type;
     private BigDecimal amount;
-    private BigDecimal balance;
+    private BigDecimal fee;
+    private BigDecimal afterBalance;
     private String traderName;
 
-    public History(OffsetDateTime transactionDate, String accountNumber, ETradeType type, BigDecimal amount, BigDecimal balance, String traderName) {
+    public History(OffsetDateTime transactionDate, String accountNumber, ETradeType type, BigDecimal amount, BigDecimal fee, BigDecimal afterBalance, String traderName) {
         this.transactionDate = transactionDate;
         this.accountNumber = accountNumber;
         this.type = type;
         this.amount = amount;
-        this.balance = balance;
+        this.fee = fee;
+        this.afterBalance = afterBalance;
         this.traderName = traderName;
     }
 
     public String getTransactionDate() {
         return this.transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm"));
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
     }
 
     public ETradeType getType() {
@@ -44,7 +42,11 @@ public class History {
                 type = "출금";
                 break;
             case TRANSFER:
-                type = "송금";
+                if (fee.compareTo(BigDecimal.ZERO) > 0) {
+                    type = "타행 송금";
+                } else {
+                    type = "송금";
+                }
                 break;
             default:
                 assert (false);
@@ -58,8 +60,10 @@ public class History {
         return amount;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getFee() { return fee; }
+
+    public BigDecimal getAfterBalance() {
+        return afterBalance;
     }
 
     public String getTraderName() {
