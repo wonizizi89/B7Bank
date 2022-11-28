@@ -1,7 +1,6 @@
-package bank.controller;
+package bank.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Customer {

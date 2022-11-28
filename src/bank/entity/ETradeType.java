@@ -1,4 +1,4 @@
-package bank.controller;
+package bank.entity;
 
 public enum ETradeType {
     DEPOSIT,

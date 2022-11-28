@@ -1,8 +1,8 @@
 package bank.view;
 
-import bank.controller.Account;
-import bank.controller.Bank;
-import bank.controller.Customer;
+import bank.entity.Account;
+import bank.entity.Bank;
+import bank.entity.Customer;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -67,9 +67,9 @@ public class BankingView {
     public static void showBankingUI(Bank bank, Customer customer, int index) {
         Scanner moveScanner = new Scanner(System.in);
         index -= 1;
+        System.out.println(String.format("👛현재 계좌 : %s", customer.getAccount(index).getAccountNumberWithHypen()));
         System.out.println("========================================");
         System.out.println("<원하시는 업무를 선택해주세요>");
-        System.out.println(String.format("<현재 계좌 : %s>", customer.getAccount(index).getAccountNumberWithHypen()));
         System.out.println("0. 돌아가기");
         System.out.println("1. 입금");
         System.out.println("2. 출금");
@@ -107,15 +107,12 @@ public class BankingView {
             case 3:
                 ViewMethod.jump();
                 showTransferUI(bank, customer, index);
-                System.out.println("----------------------------------------");
-                System.out.println(String.format("%s💰잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalance()));
-                System.out.println(String.format("%s💰이율이 적용된 예상 잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalanceApplyInterestRate()));
                 showBankingUI(bank, customer, index + 1);
                 break;
             case 4:
                 ViewMethod.jump();
-                System.out.println("----------------------------------------");
-                System.out.println(String.format("💰잔고: %s원", customer.getAccount(index).getBalance()));
+                System.out.print(String.format("%s💰잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalance()));
+                System.out.println(String.format("%s💰연이율이 적용된 예상 잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalanceApplyInterestRate()));
                 showBankingUI(bank, customer, index + 1);
                 break;
             case 5:
@@ -174,9 +171,10 @@ public class BankingView {
         Account account = customer.getAccount(index);
 
         Scanner amountScanner = new Scanner(System.in);
+        System.out.println(String.format("💰현재 잔고: %s원", account.getBalance()));
+        System.out.println(String.format("👛현재 계좌 : %s", account.getAccountNumberWithHypen()));
         System.out.println("========================================");
         System.out.println("<되돌아 가려면 0번을 입력하세요.>");
-        System.out.println(String.format("<💰현재 잔고: %s원>", account.getBalance()));
         System.out.print("출금할 금액 : ");
         String inputAmount = amountScanner.next();
 
@@ -211,6 +209,61 @@ public class BankingView {
         showBankingUI(bank, customer, index + 1);
     }
 
+    // 송금
+    public static void showTransferUI(Bank bank, Customer customer, int index) {
+        Account account = customer.getAccount(index);
+
+        Scanner amountScanner = new Scanner(System.in);
+        System.out.println(String.format("💰현재 잔고: %s원", account.getBalance()));
+        System.out.println(String.format("👛현재 계좌 : %s", account.getAccountNumberWithHypen()));
+        System.out.println("========================================");
+        System.out.println("<되돌아 가려면 0번을 입력하세요.>");
+        System.out.print("송금할 계좌번호를 입력해주세요. : ");
+        String inputAccount = amountScanner.next();
+        Account yourAccount = bank.findAccountOrNull(inputAccount);
+
+        if (inputAccount.equals("0")) {
+            ViewMethod.jump();
+            showBankingUI(bank, customer, index + 1);
+        }
+
+        if (yourAccount == null) {
+            ViewMethod.jump();
+            System.out.println("계좌를 찾을 수 없습니다🥲");
+            showTransferUI(bank, customer, index);
+            return;
+        }
+        System.out.print("송금할 금액 : ");
+
+        String inputAmount = amountScanner.next();
+        for (int i = 0; i < inputAmount.length(); i++) {
+            char moveChar = inputAmount.charAt(i);
+            if (moveChar < 48 || moveChar > 57) {
+                ViewMethod.jump();
+                ViewMethod.printWrongTypingMessage();
+                showTransferUI(bank, customer, index);
+                return;
+            }
+        }
+
+        if (inputAmount.equals("0")) {
+            ViewMethod.jump();
+            showBankingUI(bank, customer, index + 1);
+        }
+
+        BigDecimal amount = new BigDecimal(inputAmount);
+        if (account.transfer(yourAccount, amount)) {
+            ViewMethod.jump();
+            System.out.println(String.format("💸%s 님께 송금완료!", yourAccount.getOwnerName()));
+            System.out.println(String.format("💰잔고: %s원", account.getBalance()));
+            showBankingUI(bank, customer, ++index);
+        } else {
+            ViewMethod.jump();
+            System.out.println("잔액이 부족합니다😮");
+            showTransferUI(bank, customer, index);
+        }
+    }
+
     // 모든 거래내역을 보는 뷰
     public static void showHistoriesUI(Bank bank, Customer customer, int index) {
         Scanner moveScanner = new Scanner(System.in);
@@ -234,11 +287,10 @@ public class BankingView {
         }
 
         int moveInt = Integer.parseInt(move);
-        if (moveInt == 48) {
+        if (moveInt == 0) {
             ViewMethod.jump();
             showBankingUI(bank, customer, index + 1);
-            System.exit(0);
-        } else if (moveInt < 0 ||moveInt > account.getHistories().size()) {
+        } else if (moveInt < 0 || moveInt > account.getHistories().size()) {
             ViewMethod.jump();
             ViewMethod.printWrongTypingMessage();
             showHistoriesUI(bank, customer, index);
@@ -254,7 +306,7 @@ public class BankingView {
         Account account = customer.getAccount(accountIndex);
         System.out.println("<되돌아 가려면 0번을 입력하세요.>");
         System.out.println("----------------------------------------");
-        System.out.println(String.format("%s%s", account.printHistory(--historyIndex), System.lineSeparator()));
+        System.out.println(account.printHistory(--historyIndex));
         System.out.println("----------------------------------------");
         System.out.print("번호 입력 : ");
         String move = moveScanner.next();
@@ -269,47 +321,6 @@ public class BankingView {
                 ViewMethod.jump();
                 showHistoriesUI(bank, customer, accountIndex);
             }
-        }
-    }
-
-    public static void showTransferUI(Bank bank, Customer customer, int index) {
-        Account account = customer.getAccount(index);
-
-        Scanner amountScanner = new Scanner(System.in);
-        System.out.println("========================================");
-        System.out.println("<되돌아 가려면 0번을 입력하세요.>");
-        System.out.println(String.format("<💰현재 잔고: %s원>", account.getBalance()));
-        System.out.print("송금할 계좌번호를 입력해주세요. : ");
-        String inputAccount = amountScanner.next();
-        Account yourAccount = bank.findAccountOrNull(inputAccount);
-        if (yourAccount == null) {
-            ViewMethod.jump();
-            System.out.println("계좌를 찾을 수 없었습니다🥲");
-            showTransferUI(bank, customer, index);
-        }
-        System.out.print("송금할 금액 : ");
-
-        String inputAmount = amountScanner.next();
-        for (int i = 0; i < inputAmount.length(); i++) {
-            char moveChar = inputAmount.charAt(i);
-            if (moveChar < 48 || moveChar > 57) {
-                ViewMethod.jump();
-                ViewMethod.printWrongTypingMessage();
-                showTransferUI(bank, customer, index);
-                return;
-            }
-        }
-
-        BigDecimal amount = new BigDecimal(inputAmount);
-        if(account.sendMoney(yourAccount, amount)) {
-            ViewMethod.jump();
-            System.out.println(String.format("💸%s 님께 송금완료!", yourAccount.getOwnerName()));
-            System.out.println(String.format("💰잔고: %s원", account.getBalance()));
-            showBankingUI(bank, customer, ++index);
-        } else {
-            ViewMethod.jump();
-            System.out.println("잔액이 부족합니다😮");
-            showTransferUI(bank, customer, index);
         }
     }
 }

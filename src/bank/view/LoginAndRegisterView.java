@@ -1,9 +1,8 @@
 package bank.view;
 
-import bank.controller.Bank;
-import bank.controller.Customer;
+import bank.entity.Bank;
+import bank.entity.Customer;
 
-import javax.swing.text.View;
 import java.util.Scanner;
 
 public class LoginAndRegisterView {
@@ -49,6 +48,18 @@ public class LoginAndRegisterView {
                 showBeginningUI(bank);
                 break;
         }
+    }
+
+    public static void showSelectBankUI() {
+        System.out.println("========== 로그인 페이지 입니다. ==========");
+        System.out.println("<되돌아 가려면 0번을 입력하세요.>");
+        System.out.println("1. KB국민은행");
+        System.out.println("2. 신한은행");
+        System.out.println("3. 우리은행");
+        System.out.println("4. Citibank");
+        System.out.println("5. KEB 하나은행");
+        System.out.println("6. IBK 기업은행");
+        System.out.println("7. 카카오뱅크");
     }
 
     public static void showLoginUI(Bank bank) {
@@ -101,6 +112,7 @@ public class LoginAndRegisterView {
         if(newCustomerID.equals("0")) {
             ViewMethod.jump();
             showBeginningUI(bank);
+            return;
         }
 
         if (bank.checkDuplicateID(newCustomerID)) {
@@ -110,22 +122,25 @@ public class LoginAndRegisterView {
             if(newCustomerPassword.equals("0")) {
                 ViewMethod.jump();
                 showBeginningUI(bank);
+                return;
             }
 
             System.out.print("NAME : ");
             String customerName = inputSc.next();
-            bank.registerCustomer(newCustomerID, newCustomerPassword, customerName);
 
             if(customerName.equals("0")) {
                 ViewMethod.jump();
                 showBeginningUI(bank);
+                return;
             }
 
+            bank.registerCustomer(newCustomerID, newCustomerPassword, customerName);
         } else {
             ViewMethod.jump();
             System.out.println("중복된 ID 입니다🥲");
             System.out.println("다시 입력해주세요.");
             showRegisterCustomerUI(bank);
+            return;
         }
 
         ViewMethod.jump();

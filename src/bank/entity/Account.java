@@ -1,11 +1,10 @@
-package bank.controller;
+package bank.entity;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Account {
     private String ownerName;
@@ -13,7 +12,6 @@ public class Account {
     private BigDecimal balance;
     private String bankName;
     private List<History> histories;
-
     private BigDecimal interestRate;
 
     public Account(String ownerName, String accountNumber, String bankName, BigDecimal interestRate) {
@@ -83,7 +81,7 @@ public class Account {
             // 만약 거래 금액이 0보다 크다면!
             if (singleHistory.getType() == ETradeType.DEPOSIT) {
                 historyBuilder.append(String.format("+%s원", decimalFormatter.format(singleHistory.getAmount())));
-            } else if (singleHistory.getType() == ETradeType.WITHDRAW){
+            } else {
                 historyBuilder.append(String.format("-%s원", decimalFormatter.format(singleHistory.getAmount())));
             }
 
@@ -99,10 +97,16 @@ public class Account {
 
         History targetHistory = histories.get(index);
         historyBuilder.append(String.format("%s%s", targetHistory.getTransactionDate(), System.lineSeparator()));
+
         historyBuilder.append(String.format("거래금액: %s%s", decimalFormatter.format(targetHistory.getAmount()),
                 System.lineSeparator()));
-        historyBuilder.append(String.format("거래후 잔액: %s%s", decimalFormatter.format(targetHistory.getBalance()),
-                System.lineSeparator()));
+        if (targetHistory.getType() == ETradeType.DEPOSIT) {
+            historyBuilder.append(String.format("거래후 잔액: +%s%s", decimalFormatter.format(targetHistory.getBalance()),
+                    System.lineSeparator()));
+        } else {
+            historyBuilder.append(String.format("거래후 잔액: -%s%s", decimalFormatter.format(targetHistory.getBalance()),
+                    System.lineSeparator()));
+        }
         historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
 
         return historyBuilder.toString();
@@ -130,11 +134,12 @@ public class Account {
         return amount;
     }
 
-    public boolean sendMoney(Account yourAccount, BigDecimal amount){
-        if(withdraw(amount).compareTo(BigDecimal.ZERO)==0){
+    public boolean transfer(Account yourAccount, BigDecimal amount){
+        if (this.balance.compareTo(amount) < 0) {
             return false;
-        } else{
-            yourAccount.deposit(amount);
+        } else {
+            this.balance = this.balance.subtract(amount);
+            yourAccount.balance = yourAccount.balance.add(amount);
             addHistory(ETradeType.TRANSFER, amount, this.balance, ownerName);
             yourAccount.addHistory(ETradeType.DEPOSIT, amount, yourAccount.balance, ownerName);
             return true;
