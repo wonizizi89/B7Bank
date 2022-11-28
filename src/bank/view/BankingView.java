@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class BankingView {
     Scanner inputSc = new Scanner(System.in);
 
+
     // 은행 업무를 선택하게 되는 뷰
     public void showUiBanking(List<Account> accounts) {
         System.out.println("--------------------------------");
@@ -93,4 +94,6 @@ public class BankingView {
             }
         }
     }
+
 }
+
