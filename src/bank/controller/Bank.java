@@ -8,14 +8,15 @@ import java.util.ArrayList;
 
 public class Bank {
     private String bankName;
+    private String bankCode;
     private List<Account> bankAccounts;
     private List<Customer> customers;
     private BigDecimal interestRate;
 
 
-    public Bank(String bankName, BigDecimal interestRate) {
-
+    public Bank(String bankName, BigDecimal interestRate, String bankCode) {
         this.bankName = bankName;
+        this.bankCode = bankCode;
         this.bankAccounts = new ArrayList<>();
         this.customers = new ArrayList<>();
         this.interestRate = interestRate;
@@ -101,9 +102,17 @@ public class Bank {
         return null;
     }
 
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public void addAccount(Account account) {
+        bankAccounts.add(account);
+    }
+
     private String createBankNumber() {
         StringBuilder bankNumBuilder = new StringBuilder();
-        bankNumBuilder.append("110");
+        bankNumBuilder.append(this.bankCode);
         bankNumBuilder.append(String.format("%03d", (int)(Math.random() * 100)));
         bankNumBuilder.append(String.format("%06d", (int)(Math.random() * 100000)));
         return bankNumBuilder.toString();
