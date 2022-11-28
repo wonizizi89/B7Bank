@@ -69,14 +69,12 @@ public class Bank {
             }
         }
     }
-
     public void findEveryAccountFromCustomerId(Customer customer) { //모든 계좌 목록 조회
         List<Account> temp = customer.getCustomerAccounts();
         for (Account account : temp) {
             System.out.println(account);
         }
     }
-
     public Account registerAccount(String ownerName) {
         String bankNumber = createBankNumber();
 
