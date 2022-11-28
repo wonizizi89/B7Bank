@@ -64,10 +64,10 @@ public class Account {
             historyBuilder.append(String.format("%d. %s, %s, ", i + 1, singleHistory.getTraderName(),
                     singleHistory.getTypeByString()));
             // 만약 거래 금액이 0보다 크다면!
-            if (singleHistory.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+            if (singleHistory.getType() == ETradeType.DEPOSIT) {
                 historyBuilder.append(String.format("+%s원", decimalFormatter.format(singleHistory.getAmount())));
-            } else {
-                historyBuilder.append(String.format("%s원", decimalFormatter.format(singleHistory.getAmount())));
+            } else if (singleHistory.getType() == ETradeType.WITHDRAW){
+                historyBuilder.append(String.format("-%s원", decimalFormatter.format(singleHistory.getAmount())));
             }
 
             historyBuilder.append(String.format("[%s]%s", singleHistory.getTransactionDate(), System.lineSeparator()));
@@ -80,7 +80,7 @@ public class Account {
         StringBuilder historyBuilder = new StringBuilder();
         DecimalFormat decimalFormatter = new DecimalFormat("0.##");
 
-        History targetHistory = histories.get(index - 1);
+        History targetHistory = histories.get(index);
         historyBuilder.append(String.format("%s%s", targetHistory.getTransactionDate(), System.lineSeparator()));
         historyBuilder.append(String.format("거래금액: %s%s", decimalFormatter.format(targetHistory.getAmount()),
                 System.lineSeparator()));
