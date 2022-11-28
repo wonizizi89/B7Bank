@@ -107,6 +107,7 @@ public class BankingView {
                 ViewMethod.jump();
                 System.out.println("----------------------------------------");
                 System.out.println(String.format("%s💰잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalance()));
+                System.out.println(String.format("%s💰이율이 적용된 예상 잔고: %s원", System.lineSeparator(), customer.getAccount(index).getBalanceApplyInterestRate()));
                 showBankingUI(bank, customer, index + 1);
                 break;
             case 4:
