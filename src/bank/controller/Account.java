@@ -117,6 +117,13 @@ public class Account {
         return amount;
     }
 
+    public void sendMoney(Account myAccount, Account yourAccount, BigDecimal howMuch){
+        if(myAccount.withdraw(howMuch).compareTo(BigDecimal.ZERO)==0){
+            System.out.println("잔액이 부족합니다.");
+        } else{
+            yourAccount.deposit(howMuch);
+        }
+    }
 }
 
 
