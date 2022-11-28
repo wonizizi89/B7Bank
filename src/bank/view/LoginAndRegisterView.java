@@ -52,7 +52,7 @@ public class LoginAndRegisterView {
 
         if (bank.loginCustomer(customer, password)) {
             System.out.println("로그인 되었습니다.");
-            MainView.mainView();
+            MainView.showMainUI(bank, customer);
         } else {
             System.out.println("비밀번호가 틀립니다.");
             showUILogin(bank);

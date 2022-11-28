@@ -1,6 +1,7 @@
 package bank.view;
 
 import bank.controller.Account;
+import bank.controller.Bank;
 import bank.controller.Customer;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class BankingView {
 
     // 소유한 계좌 목록을 보여주는 뷰
-    public void showAccountListUI(Customer customer) {
+    public static void showAccountListUI(Bank bank, Customer customer) {
         Scanner moveScanner = new Scanner(System.in);
 
         System.out.println("--------------------------------");
@@ -36,7 +37,7 @@ public class BankingView {
             char moveChar = inputMove.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
                 System.out.println(" 잘 못 입력되었습니다.");
-                showAccountListUI(customer);
+                showAccountListUI(bank, customer);
                 return;
             }
         }
@@ -44,15 +45,19 @@ public class BankingView {
         int moveInt = Integer.parseInt(inputMove);
         if (moveInt < 0 || moveInt > accounts.size()) {
             System.out.println("잘 못 입력되었습니다.");
-            showAccountListUI(customer);
+            showAccountListUI(bank, customer);
             return;
         }
 
-        showBankingUI(customer, moveInt);
+        if (moveInt == 0) {
+            MainView.showMainUI(bank, customer);
+        } else {
+            showBankingUI(bank, customer, moveInt);
+        }
     }
 
     // 은행 업무를 선택하게 되는 뷰
-    public void showBankingUI(Customer customer, int index) {
+    public static void showBankingUI(Bank bank, Customer customer, int index) {
         Scanner moveScanner = new Scanner(System.in);
 
         System.out.println("--------------------------------");
@@ -73,7 +78,7 @@ public class BankingView {
             char moveChar = inputMove.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
                 System.out.println(" 잘 못 입력되었습니다.");
-                showAccountListUI(customer);
+                showAccountListUI(bank, customer);
                 return;
             }
         }
@@ -82,27 +87,27 @@ public class BankingView {
 
         switch (moveInt) {
             case 0:
-                showAccountListUI(customer);
+                showAccountListUI(bank, customer);
                 break;
             case 1:
-                showDepositeUI(customer, index);
+                showDepositeUI(bank, customer, index);
                 break;
             case 2:
-                showWithdrawUI(customer, index);
+                showWithdrawUI(bank, customer, index);
                 break;
             case 3:
-                System.out.println(String.format("잔고: %s원" ,customer.getAccount(index).getBalance()));
-                showBankingUI(customer, index);
+                System.out.println(String.format("잔고: %s원", customer.getAccount(index).getBalance()));
+                showBankingUI(bank, customer, index);
                 break;
             default:
                 System.out.println(" 잘 못 입력되었습니다.");
-                showBankingUI(customer, index);
+                showBankingUI(bank, customer, index);
                 break;
         }
     }
 
     // 입금
-    public void showDepositeUI(Customer customer, int index) {
+    public static void showDepositeUI(Bank bank, Customer customer, int index) {
         Scanner amountScanner = new Scanner(System.in);
         System.out.println("--------------------------------");
         System.out.println("0. 돌아가기");
@@ -114,30 +119,30 @@ public class BankingView {
             char moveChar = inputAmount.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
                 System.out.println(" 잘 못 입력되었습니다.");
-                showDepositeUI(customer, index);
+                showDepositeUI(bank, customer, index);
                 return;
             }
         }
 
         BigDecimal amount = new BigDecimal(inputAmount);
         if (amount.compareTo(BigDecimal.ZERO) == 0) {
-            showBankingUI(customer, index);
+            showBankingUI(bank, customer, index);
             return;
         }
 
         Account account = customer.getAccount(index);
         account.deposit(amount);
-        System.out.println(String.format("잔고: %s원" ,account.getBalance()));
-        showBankingUI(customer, index);
+        System.out.println(String.format("잔고: %s원", account.getBalance()));
+        showBankingUI(bank, customer, index);
     }
 
     // 출금
-    public void showWithdrawUI(Customer customer, int index) {
+    public static void showWithdrawUI(Bank bank, Customer customer, int index) {
         Account account = customer.getAccount(index);
 
         Scanner amountScanner = new Scanner(System.in);
         System.out.println("--------------------------------");
-        System.out.println(String.format("잔고: %s원" ,account.getBalance()));
+        System.out.println(String.format("잔고: %s원", account.getBalance()));
         System.out.println("0. 돌아가기");
         System.out.println("출금할 금액을 입력해주세요");
         System.out.print(" > ");
@@ -147,29 +152,29 @@ public class BankingView {
             char moveChar = inputAmount.charAt(i);
             if (moveChar < 48 || moveChar > 57) {
                 System.out.println(" 잘 못 입력되었습니다.");
-                showWithdrawUI(customer, index);
+                showWithdrawUI(bank, customer, index);
                 return;
             }
         }
 
         BigDecimal amount = new BigDecimal(inputAmount);
         if (amount.compareTo(BigDecimal.ZERO) == 0) {
-            showBankingUI(customer, index);
+            showBankingUI(bank, customer, index);
             return;
         }
 
         if (account.withdraw(amount).compareTo(BigDecimal.ZERO) == 0) {
             System.out.println("잔액이 부족합니다.");
-            showBankingUI(customer, index);
+            showBankingUI(bank, customer, index);
             return;
         }
 
-        System.out.println(String.format("잔고: %s원" ,account.getBalance()));
-        showBankingUI(customer, index);
+        System.out.println(String.format("잔고: %s원", account.getBalance()));
+        showBankingUI(bank, customer, index);
     }
 
     // 모든 거래내역을 보는 뷰
-    public void showHistoriesUI(Account account) {
+    public static void showHistoriesUI(Account account) {
         Scanner moveScanner = new Scanner(System.in);
 
         System.out.println("--------------------------------");
@@ -195,7 +200,7 @@ public class BankingView {
     }
 
     // 특정 거래내역을 상세로 보는 뷰
-    public void showHistory(Account account, int index) {
+    public static void showHistory(Account account, int index) {
         Scanner moveScanner = new Scanner(System.in);
 
         System.out.println("--------------------------------");
