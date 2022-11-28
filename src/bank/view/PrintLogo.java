@@ -1,7 +1,7 @@
 package bank.view;
 
 public class PrintLogo {
-    public static void printLogo() {
+    public static void printLogo() { //main 이 시작될 때 한번만 불러준다.
         System.out.println("███████╗███████╗██╗   ██╗███████╗███╗   ██╗    ██████╗  █████╗ ███╗   ██╗██╗  ██╗");
         System.out.println("██╔════╝██╔════╝██║   ██║██╔════╝████╗  ██║    ██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝");
         System.out.println("███████╗█████╗  ██║   ██║█████╗  ██╔██╗ ██║    ██████╔╝███████║██╔██╗ ██║█████╔╝");
