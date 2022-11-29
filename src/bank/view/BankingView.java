@@ -122,7 +122,7 @@ public class BankingView {
                 ViewMethod.jump();
                 System.out.print(String.format("%s💰잔고: %s원", System.lineSeparator(), moneyFormatter.format(currentAccount.getBalance())));
                 System.out.println(String.format("%s💰연 이율이 적용된 예상 잔고: %s원", System.lineSeparator(),
-                        moneyFormatter.format(currentAccount.getBalanceApplyInterestRate())));
+                        currentAccount.getBalanceApplyInterestRate()));
                 showBankingUI(customer, index);
                 break;
             case 5:
