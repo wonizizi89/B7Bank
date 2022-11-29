@@ -69,7 +69,7 @@ public class Account {
 
     public String printAllHistoriesOrNull() {
         StringBuilder historyBuilder = new StringBuilder();
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("###,###.##");
 
         if (histories.size() == 0) {
             return null;
@@ -141,7 +141,7 @@ public class Account {
             return false;
         } else {
             this.balance = this.balance.subtract(finalAmount);
-            yourAccount.balance = yourAccount.balance.add(finalAmount);
+            yourAccount.balance = yourAccount.balance.add(amount);
             addHistory(ETradeType.TRANSFER, amount, fee, this.balance, ownerName);
             yourAccount.addHistory(ETradeType.DEPOSIT, amount, fee, yourAccount.balance, ownerName);
             return true;
