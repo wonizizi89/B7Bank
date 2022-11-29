@@ -29,6 +29,10 @@ public class Account {
         return this.ownerName;
     }
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
     public String getAccountNumberWithHypen() {
         StringBuilder hypenAttacher = new StringBuilder();
         hypenAttacher.append(accountNumber.substring(0, 3));
