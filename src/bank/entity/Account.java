@@ -69,7 +69,7 @@ public class Account {
 
     public String printAllHistoriesOrNull() {
         StringBuilder historyBuilder = new StringBuilder();
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("###,###.##");
 
         if (histories.size() == 0) {
             return null;
@@ -94,7 +94,7 @@ public class Account {
 
     public String printHistory(int index) {
         StringBuilder historyBuilder = new StringBuilder();
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("###,###.##");
 
         History targetHistory = histories.get(index);
         historyBuilder.append(String.format("%s%s", targetHistory.getTransactionDate(), System.lineSeparator()));
@@ -121,10 +121,12 @@ public class Account {
             default:
                 break;
         }
+
         if (targetHistory.getFee().compareTo(BigDecimal.ZERO) != 0) {
             historyBuilder.append(String.format("수수료: %s%s", targetHistory.getFee(), System.lineSeparator()));
         }
-        historyBuilder.append(String.format("거래후 잔액: %s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
+
+        historyBuilder.append(String.format("거래후 잔액: %s원%s", decimalFormatter.format(targetHistory.getAfterBalance()),
                 System.lineSeparator()));
         historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
 
