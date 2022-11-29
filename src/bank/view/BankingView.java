@@ -16,7 +16,7 @@ public class BankingView {
 
     Scanner inputSc = new Scanner(System.in);
 
-    // UI 설계시
+    // UI 설계시/
     public void UiShowAmount(List<Account> accounts ) {
         System.out.println("--------------------------------");
         System.out.println("1. 입금 ｜2. 출금 ｜ 3. 잔여금 ");
