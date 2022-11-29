@@ -100,10 +100,10 @@ public class Account {
         History targetHistory = histories.get(index);
         historyBuilder.append(String.format("%s%s", targetHistory.getTransactionDate(), System.lineSeparator()));
         if (targetHistory.getType() == ETradeType.DEPOSIT) {
-            historyBuilder.append(String.format("거래금액: +%s%s원", decimalFormatter.format(targetHistory.getAmount()),
+            historyBuilder.append(String.format("거래금액: +%s원%s", decimalFormatter.format(targetHistory.getAmount()),
                     System.lineSeparator()));
         } else {
-            historyBuilder.append(String.format("거래금액: -%s%s원", decimalFormatter.format(targetHistory.getAmount()),
+            historyBuilder.append(String.format("거래금액: -%s원%s", decimalFormatter.format(targetHistory.getAmount()),
                     System.lineSeparator()));
         }
 
@@ -111,7 +111,7 @@ public class Account {
             historyBuilder.append(String.format("%s수수료: %s원   ", System.lineSeparator(), targetHistory.getFee()));
         }
 
-        historyBuilder.append(String.format("거래후 잔액: %s%s원", decimalFormatter.format(targetHistory.getAfterBalance()),
+        historyBuilder.append(String.format("거래후 잔액: %s원%s", decimalFormatter.format(targetHistory.getAfterBalance()),
                 System.lineSeparator()));
         historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
 
