@@ -35,7 +35,7 @@ public class AccountApp {
             return false;
         } else {
             customer.deleteCustomerAccount(targetAccount);
-            accounts.remove(targetAccount);
+            accounts.remove(targetAccount.getAccountNumber());
             return true;
         }
     }
