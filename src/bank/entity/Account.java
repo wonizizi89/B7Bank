@@ -45,7 +45,7 @@ public class Account {
     }
 
     public String getBalanceApplyInterestRate() {
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("###,###.##");
         BigDecimal result = this.interestRate.add(BigDecimal.valueOf(1));
         return decimalFormatter.format(this.balance.multiply(result));
     }
