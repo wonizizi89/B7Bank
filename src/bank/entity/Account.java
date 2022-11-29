@@ -45,7 +45,7 @@ public class Account {
     }
 
     public String getBalanceApplyInterestRate() {
-        DecimalFormat decimalFormatter = new DecimalFormat("0.##");
+        DecimalFormat decimalFormatter = new DecimalFormat("###,###.##");
         BigDecimal result = this.interestRate.add(BigDecimal.valueOf(1));
         return decimalFormatter.format(this.balance.multiply(result));
     }
@@ -99,28 +99,28 @@ public class Account {
 
         History targetHistory = histories.get(index);
         historyBuilder.append(String.format("%s%s", targetHistory.getTransactionDate(), System.lineSeparator()));
-
-        historyBuilder.append(String.format("거래금액: %s%s", decimalFormatter.format(targetHistory.getAmount()),
-                System.lineSeparator()));
         if (targetHistory.getType() == ETradeType.DEPOSIT) {
-            historyBuilder.append(String.format("거래후 잔액: +%s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
+            historyBuilder.append(String.format("거래금액: +%s%s", decimalFormatter.format(targetHistory.getAmount()),
                     System.lineSeparator()));
         } else {
-            historyBuilder.append(String.format("거래후 잔액: -%s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
+            historyBuilder.append(String.format("거래금액: -%s%s", decimalFormatter.format(targetHistory.getAmount()),
                     System.lineSeparator()));
         }
-        historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
 
         if (targetHistory.getFee().compareTo(BigDecimal.ZERO) != 0) {
-            historyBuilder.append(String.format("수수료: %s%s", System.lineSeparator(), targetHistory.getFee()));
+            historyBuilder.append(String.format("%s수수료: %s", System.lineSeparator(), targetHistory.getFee()));
         }
+
+        historyBuilder.append(String.format("거래후 잔액: %s%s", decimalFormatter.format(targetHistory.getAfterBalance()),
+                System.lineSeparator()));
+        historyBuilder.append(String.format("거래유형: %s", targetHistory.getTypeByString()));
 
         return historyBuilder.toString();
     }
 
     public BigDecimal withdraw(BigDecimal amount) {
         if (this.balance.compareTo(amount) < 0) {
-             return BigDecimal.ZERO;
+            return BigDecimal.ZERO;
         } else {
             this.balance = this.balance.subtract(amount);
             addHistory(ETradeType.WITHDRAW, amount, BigDecimal.ZERO, this.balance, ownerName);
@@ -134,16 +134,16 @@ public class Account {
         return amount;
     }
 
-    public boolean transfer(Account yourAccount, BigDecimal amount, BigDecimal fee){
+    public boolean transfer(Account yourAccount, BigDecimal amount, BigDecimal fee) {
         BigDecimal finalAmount = amount.add(fee);
 
         if (this.balance.compareTo(finalAmount) < 0) {
             return false;
         } else {
             this.balance = this.balance.subtract(finalAmount);
-            yourAccount.balance = yourAccount.balance.add(finalAmount);
+            yourAccount.balance = yourAccount.balance.add(amount);
             addHistory(ETradeType.TRANSFER, amount, fee, this.balance, ownerName);
-            yourAccount.addHistory(ETradeType.DEPOSIT, amount, fee, yourAccount.balance, ownerName);
+            yourAccount.addHistory(ETradeType.DEPOSIT, amount, BigDecimal.ZERO, yourAccount.balance, ownerName);
             return true;
         }
     }
